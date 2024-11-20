@@ -36,7 +36,7 @@ uint32_t get_factorial(const uint32_t n)
 double get_power(const double base, const uint32_t exponent)
 {
 	double result = 1;
-	for (int i = 0; i < exponent; ++i)
+	for (uint32_t i = 0; i < exponent; ++i)
 	{
 		result *= base;
 	}

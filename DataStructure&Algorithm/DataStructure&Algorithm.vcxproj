@@ -105,6 +105,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -128,10 +129,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="array\matrix.cpp" />
+    <ClCompile Include="array\polynomial.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="recursion\recursion.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="array\array.h" />
+    <ClInclude Include="array\matrix.h" />
+    <ClInclude Include="array\polynomial.h" />
     <ClInclude Include="recursion\recursion.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -16,6 +16,9 @@
     <Filter Include="recursion">
       <UniqueIdentifier>{b587fe07-0cf9-46f2-be6d-d184dd853a85}</UniqueIdentifier>
     </Filter>
+    <Filter Include="array">
+      <UniqueIdentifier>{d76f9798-e4de-4d52-9d93-69274f8bd465}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -24,10 +27,25 @@
     <ClCompile Include="recursion\recursion.cpp">
       <Filter>recursion</Filter>
     </ClCompile>
+    <ClCompile Include="array\polynomial.cpp">
+      <Filter>array</Filter>
+    </ClCompile>
+    <ClCompile Include="array\matrix.cpp">
+      <Filter>array</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="recursion\recursion.h">
       <Filter>recursion</Filter>
+    </ClInclude>
+    <ClInclude Include="array\array.h">
+      <Filter>array</Filter>
+    </ClInclude>
+    <ClInclude Include="array\polynomial.h">
+      <Filter>array</Filter>
+    </ClInclude>
+    <ClInclude Include="array\matrix.h">
+      <Filter>array</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
