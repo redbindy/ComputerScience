@@ -133,12 +133,15 @@
     <ClCompile Include="array\polynomial.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="recursion\recursion.cpp" />
+    <ClCompile Include="stack\stack_application.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="array\array.h" />
     <ClInclude Include="array\matrix.h" />
     <ClInclude Include="array\polynomial.h" />
     <ClInclude Include="recursion\recursion.h" />
+    <ClInclude Include="stack\stack_application.h" />
+    <ClInclude Include="stack\stack.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

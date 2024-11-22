@@ -7,14 +7,18 @@
 #include "array/array.h"
 #include "array/polynomial.h"
 #include "array/matrix.h"
+#include "stack/stack.h"
+#include "stack/stack_application.h"
 
 void test_recursion();
 void test_array();
+void test_stack();
 
 int main(void)
 {
 	// test_recursion();
-	test_array();
+	// test_array();
+	test_stack();
 
 	return 0;
 }
@@ -241,5 +245,97 @@ void test_array()
 		sparse_matrix_transpose(&m, &transposed);
 
 		sparse_matrix_print(&transposed);
+	}
+}
+
+void test_stack()
+{
+	// ADT
+	stack_t<int> stack = stack_create<int>(3);
+	{
+
+		assert(!stack_is_full(&stack));
+		assert(stack_is_empty(&stack));
+
+		stack_push(&stack, 10);
+
+		assert(stack_peek(&stack) == 10);
+		assert(stack_pop(&stack) == 10);
+
+		stack_push(&stack, 10);
+		stack_push(&stack, 10);
+		stack_push(&stack, 10);
+		stack_push(&stack, 10);
+
+		assert(stack.capacity == 6);
+	}
+	stack_delete(&stack);
+
+	// check_parentheses
+	{
+		const char* input = "{ A[(i + 1)] }";
+		assert(is_valid_parentheses(input, strlen(input)));
+
+		input = "if ((i == 0) && (j == 0)";
+		assert(!is_valid_parentheses(input, strlen(input)));
+
+		input = "A[(i + 1)]) = 0;";
+		assert(!is_valid_parentheses(input, strlen(input)));
+	}
+
+	// calculate postfix expression
+	{
+		const char* input = "8 2 / 3 -";
+		assert(abs(calculate_postfix_expression(input) - 1.0) < DBL_EPSILON);
+
+		input = "8 2 / 3 - 3 2 * +";
+		assert(abs(calculate_postfix_expression(input) - 7.0) < DBL_EPSILON);
+	}
+
+	// convert infix to postfix
+	{
+		const char* input = "2+3 * 4+ 9";
+		char output[1024] = { '\0', };
+
+		convert_infix_to_postfix(input, output);
+	}
+
+	// can exit maze
+	{
+		enum {
+			MAZE_WIDTH = 6,
+			MAZE_HEIGHT = 6
+		};
+
+		char maze[MAZE_WIDTH][MAZE_HEIGHT] = {
+			{ 'w', 'w', 'w', 'w', 'w', 'w' },
+			{ ' ', ' ', 'w', ' ', ' ', 'w' },
+			{ 'w', ' ', ' ', ' ', 'w', 'w' },
+			{ 'w', ' ', 'w', ' ', 'w', 'w' },
+			{ 'w', ' ', 'w', ' ', ' ', ' ' },
+			{ 'w', 'w', 'w', 'w', 'w', 'w' }
+		};
+
+		point_t entry_point = { 0, 1 };
+		point_t exit_point = { 5 , 4 };
+
+		assert(can_exit_maze(reinterpret_cast<char*>(maze), MAZE_WIDTH, MAZE_HEIGHT, entry_point, exit_point));
+
+		memset(maze, ' ', sizeof(char) * MAZE_WIDTH * MAZE_HEIGHT);
+
+		assert(can_exit_maze(reinterpret_cast<char*>(maze), MAZE_WIDTH, MAZE_HEIGHT, entry_point, exit_point));
+
+		char maze_cannot_exit[MAZE_WIDTH][MAZE_HEIGHT] = {
+			{ 'w', 'w', 'w', 'w', 'w', ' ' },
+			{ ' ', ' ', 'w', ' ', ' ', 'w' },
+			{ 'w', ' ', ' ', ' ', 'w', 'w' },
+			{ 'w', ' ', 'w', ' ', 'w', 'w' },
+			{ 'w', ' ', 'w', ' ', ' ', 'w' },
+			{ 'w', 'w', 'w', 'w', 'w', 'w' }
+		};
+
+		exit_point.x = 5;
+		exit_point.y = 0;
+		assert(!can_exit_maze(reinterpret_cast<char*>(maze_cannot_exit), MAZE_WIDTH, MAZE_HEIGHT, entry_point, exit_point));
 	}
 }

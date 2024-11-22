@@ -19,6 +19,9 @@
     <Filter Include="array">
       <UniqueIdentifier>{d76f9798-e4de-4d52-9d93-69274f8bd465}</UniqueIdentifier>
     </Filter>
+    <Filter Include="stack">
+      <UniqueIdentifier>{26f34ab3-f6e6-4f35-92af-731683976bbb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -33,6 +36,9 @@
     <ClCompile Include="array\matrix.cpp">
       <Filter>array</Filter>
     </ClCompile>
+    <ClCompile Include="stack\stack_application.cpp">
+      <Filter>stack</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="recursion\recursion.h">
@@ -46,6 +52,12 @@
     </ClInclude>
     <ClInclude Include="array\matrix.h">
       <Filter>array</Filter>
+    </ClInclude>
+    <ClInclude Include="stack\stack.h">
+      <Filter>stack</Filter>
+    </ClInclude>
+    <ClInclude Include="stack\stack_application.h">
+      <Filter>stack</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
