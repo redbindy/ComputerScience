@@ -1,14 +1,16 @@
 #include "stack_application.h"
 
-bool is_valid_parentheses(const char* p_str, const size_t len)
+using namespace stack;
+
+bool stack_application::is_valid_parentheses(const char* p_str, const size_t len)
 {
 	assert(p_str != nullptr);
 
 	const char* p_input_str = p_str;
 
-	stack_t<char> stack = stack_create<char>(len);
+	stack_t<char> stack = create<char>(len);
 	{
-		stack_push(&stack, *p_input_str);
+		push(&stack, *p_input_str);
 		for (++p_input_str; *p_input_str != '\0'; ++p_input_str) {
 
 			const char curr_ch = *p_input_str;
@@ -17,33 +19,33 @@ bool is_valid_parentheses(const char* p_str, const size_t len)
 			case '(':
 			case '{':
 			case '[':
-				stack_push(&stack, curr_ch);
+				push(&stack, curr_ch);
 				break;
 
 			case ')':
-				if (stack_peek(&stack) != '(') {
+				if (peek(&stack) != '(') {
 					goto BREAK_LOOP;
 				}
 				else {
-					stack_pop(&stack);
+					pop(&stack);
 				}
 				break;
 
 			case '}':
-				if (stack_peek(&stack) != '{') {
+				if (peek(&stack) != '{') {
 					goto BREAK_LOOP;
 				}
 				else {
-					stack_pop(&stack);
+					pop(&stack);
 				}
 				break;
 
 			case ']':
-				if (stack_peek(&stack) != '[') {
+				if (peek(&stack) != '[') {
 					goto BREAK_LOOP;
 				}
 				else {
-					stack_pop(&stack);
+					pop(&stack);
 				}
 				break;
 
@@ -53,13 +55,13 @@ bool is_valid_parentheses(const char* p_str, const size_t len)
 		}
 	BREAK_LOOP:;
 	}
-	bool is_valid = stack_is_empty(&stack);
-	stack_delete(&stack);
+	bool is_valid = is_empty(&stack);
+	delete_stack(&stack);
 
 	return is_valid;
 }
 
-const char* skip_whitespace(const char* p_str)
+static const char* skip_whitespace(const char* p_str)
 {
 	const char* p = p_str;
 	while (isspace(*p)) {
@@ -73,12 +75,12 @@ enum {
 	DEFAULT_CAPACITY = 100
 };
 
-double calculate_postfix_expression(const char* p_expression)
+double stack_application::calculate_postfix_expression(const char* p_expression)
 {
 	assert(p_expression != nullptr);
 	// 올바른 형식만 입력으로 들어온다고 가정
 
-	stack_t<double> values = stack_create<double>(DEFAULT_CAPACITY);
+	stack_t<double> values = create<double>(DEFAULT_CAPACITY);
 	{
 		const char* p_expr = skip_whitespace(p_expression);
 		while (*p_expr != '\0') {
@@ -88,43 +90,43 @@ double calculate_postfix_expression(const char* p_expression)
 				double value;
 				sscanf(p_expr, "%lf", &value);
 
-				stack_push(&values, value);
+				push(&values, value);
 			}
 			else {
 				switch (curr_ch) {
 				case '+':
 					{
-						double rhs = stack_pop(&values);
-						double lhs = stack_pop(&values);
+						double rhs = pop(&values);
+						double lhs = pop(&values);
 
-						stack_push(&values, lhs + rhs);
+						push(&values, lhs + rhs);
 					}
 					break;
 
 				case '-':
 					{
-						double rhs = stack_pop(&values);
-						double lhs = stack_pop(&values);
+						double rhs = pop(&values);
+						double lhs = pop(&values);
 
-						stack_push(&values, lhs - rhs);
+						push(&values, lhs - rhs);
 					}
 					break;
 
 				case '*':
 					{
-						double rhs = stack_pop(&values);
-						double lhs = stack_pop(&values);
+						double rhs = pop(&values);
+						double lhs = pop(&values);
 
-						stack_push(&values, lhs * rhs);
+						push(&values, lhs * rhs);
 					}
 					break;
 
 				case '/':
 					{
-						double rhs = stack_pop(&values);
-						double lhs = stack_pop(&values);
+						double rhs = pop(&values);
+						double lhs = pop(&values);
 
-						stack_push(&values, lhs / rhs);
+						push(&values, lhs / rhs);
 					}
 					break;
 
@@ -137,19 +139,19 @@ double calculate_postfix_expression(const char* p_expression)
 			p_expr = skip_whitespace(p_expr + 1);
 		}
 	}
-	double result = stack_pop(&values);
+	double result = pop(&values);
 
-	stack_delete(&values);
+	delete_stack(&values);
 
 	return result;
 }
 
-void convert_infix_to_postfix(const char* p_expression, char* p_out_result)
+void stack_application::convert_infix_to_postfix(const char* p_expression, char* p_out_result)
 {
 	assert(p_expression != nullptr);
 	assert(p_out_result != nullptr);
 
-	stack_t<char> operators = stack_create<char>(DEFAULT_CAPACITY);
+	stack_t<char> operators = create<char>(DEFAULT_CAPACITY);
 	{
 		const char* p_expr = p_expression;
 		char buffer[DEFAULT_CAPACITY];
@@ -168,16 +170,16 @@ void convert_infix_to_postfix(const char* p_expression, char* p_out_result)
 				switch (curr_ch) {
 				case '+':
 				case '-':
-					while (!stack_is_empty(&operators)) {
+					while (!is_empty(&operators)) {
 
-						const char op = stack_peek(&operators);
+						const char op = peek(&operators);
 						switch (op)
 						{
 						case '+':
 						case '-':
 						case '*':
 						case '/':
-							stack_pop(&operators);
+							pop(&operators);
 
 							sprintf(buffer, " %c", op);
 							strcat(p_out_result, buffer);
@@ -189,35 +191,35 @@ void convert_infix_to_postfix(const char* p_expression, char* p_out_result)
 						}
 					}
 				BREAK_LOOP:
-					stack_push(&operators, curr_ch);
+					push(&operators, curr_ch);
 
 					break;
 
 				case '*':
 				case '/':
-					while (!stack_is_empty(&operators)) {
-						const char op = stack_peek(&operators);
+					while (!is_empty(&operators)) {
+						const char op = peek(&operators);
 						if (op == '+' || op == '-') {
 							break;
 						}
 
-						stack_pop(&operators);
+						pop(&operators);
 
 						sprintf(buffer, " %c", op);
 						strcat(p_out_result, buffer);
 					}
 
-					stack_push(&operators, curr_ch);
+					push(&operators, curr_ch);
 
 					break;
 
 				case '(':
-					stack_push(&operators, curr_ch);
+					push(&operators, curr_ch);
 					break;
 
 				case ')':
-					while (!stack_is_empty(&operators)) {
-						const char op = stack_pop(&operators);
+					while (!is_empty(&operators)) {
+						const char op = pop(&operators);
 						if (op == '(') {
 							break;
 						}
@@ -236,17 +238,17 @@ void convert_infix_to_postfix(const char* p_expression, char* p_out_result)
 			p_expr = skip_whitespace(p_expr + 1);
 		}
 
-		while (!stack_is_empty(&operators)) {
-			const char op = stack_pop(&operators);
+		while (!is_empty(&operators)) {
+			const char op = pop(&operators);
 			sprintf(buffer, " %c", op);
 
 			strcat(p_out_result, buffer);
 		}
 	}
-	stack_delete(&operators);
+	delete_stack(&operators);
 }
 
-bool can_exit_maze(
+bool stack_application::can_exit_maze(
 	char* p_maze,
 	const int width, const int height,
 	const point_t entry_point,
@@ -255,12 +257,12 @@ bool can_exit_maze(
 {
 	bool can_exit = false;
 
-	stack_t<point_t> coords = stack_create<point_t>(width * height);
+	stack_t<point_t> coords = create<point_t>(width * height);
 	{
-		stack_push(&coords, entry_point);
+		push(&coords, entry_point);
 
-		while (!stack_is_empty(&coords)) {
-			point_t curr_point = stack_peek(&coords);
+		while (!is_empty(&coords)) {
+			point_t curr_point = peek(&coords);
 
 			if (curr_point.x == exit_point.x && curr_point.y == exit_point.y) {
 				can_exit = true;
@@ -272,7 +274,7 @@ bool can_exit_maze(
 				|| curr_point.y < 0 || curr_point.y >= height
 				|| p_maze[curr_point.y * width + curr_point.x] != ' ') {
 
-				stack_pop(&coords);
+				pop(&coords);
 
 				continue;
 			}
@@ -284,13 +286,13 @@ bool can_exit_maze(
 			point_t left = { curr_point.x - 1, curr_point.y };
 			point_t up = { curr_point.x, curr_point.y - 1 };
 
-			stack_push(&coords, up);
-			stack_push(&coords, left);
-			stack_push(&coords, down);
-			stack_push(&coords, right);
+			push(&coords, up);
+			push(&coords, left);
+			push(&coords, down);
+			push(&coords, right);
 		}
 	}
-	stack_delete(&coords);
+	delete_stack(&coords);
 
 	return can_exit;
 }

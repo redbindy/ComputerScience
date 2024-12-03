@@ -3,49 +3,53 @@
 #include <cassert>
 #include <cstdlib>
 
-template<typename T>
-struct array_t {
-	T* p_data;
-	size_t capacity;
-};
-
-template<typename T>
-array_t<T> array_create(const size_t capacity)
+namespace array
 {
-	assert(capacity > 0);
+	template<typename T>
+	struct array_t {
+		T* p_data;
 
-	array_t<T> ret;
-	ret.p_data = static_cast<T*>(malloc(sizeof(T) * capacity));
-	ret.capacity = capacity;
+		size_t capacity;
+	};
 
-	return ret;
-}
+	template<typename T>
+	array_t<T> create(const size_t capacity)
+	{
+		assert(capacity > 0);
 
-template<typename T>
-void array_delete(array_t<T>* p_this)
-{
-	free(p_this->p_data);
-	p_this->p_data = nullptr;
+		array_t<T> ret;
+		ret.p_data = static_cast<T*>(malloc(sizeof(T) * capacity));
+		ret.capacity = capacity;
 
-	p_this->capacity = 0;
-}
+		return ret;
+	}
 
-template<typename T>
-T array_get(const array_t<T>* p_this, const size_t index)
-{
-	assert(p_this != nullptr);
-	assert(p_this->p_data != nullptr);
-	assert(index < p_this->capacity);
+	template<typename T>
+	void delete_array(array_t<T>* p_this)
+	{
+		free(p_this->p_data);
+		p_this->p_data = nullptr;
 
-	return *(p_this->p_data + index);
-}
+		p_this->capacity = 0;
+	}
 
-template<typename T>
-void array_set(array_t<T>* p_this, const size_t index, const T value)
-{
-	assert(p_this != nullptr);
-	assert(p_this->p_data != nullptr);
-	assert(index < p_this->capacity);
+	template<typename T>
+	T get(const array_t<T>* p_this, const size_t index)
+	{
+		assert(p_this != nullptr);
+		assert(p_this->p_data != nullptr);
+		assert(index < p_this->capacity);
 
-	*(p_this->p_data + index) = value;
+		return *(p_this->p_data + index);
+	}
+
+	template<typename T>
+	void set(array_t<T>* p_this, const size_t index, const T value)
+	{
+		assert(p_this != nullptr);
+		assert(p_this->p_data != nullptr);
+		assert(index < p_this->capacity);
+
+		*(p_this->p_data + index) = value;
+	}
 }

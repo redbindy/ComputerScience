@@ -4,60 +4,66 @@
 #include <cstdlib>
 #include <cstring>
 
-namespace stack
+namespace linear_queue
 {
 	template<typename T>
-	struct stack_t {
+	struct linear_queue_t {
 		T* p_data;
 
+		int front;
+		int back;
+
 		size_t capacity;
-		size_t top;
 	};
 
 	template<typename T>
-	stack_t<T> create(const size_t capacity)
+	linear_queue_t<T> create(const size_t capacity)
 	{
 		assert(capacity > 0);
 
-		stack_t<T> result;
-		result.p_data = static_cast<T*>(malloc(sizeof(T) * capacity));
-		
-		result.capacity = capacity;
-		result.top = 0;
+		linear_queue_t<T> ret;
+		ret.p_data = static_cast<T*>(malloc(sizeof(T) * capacity));
 
-		return result;
+		ret.front = -1;
+		ret.back = 0;
+
+		ret.capacity = capacity;
+
+		return ret;
 	}
 
 	template<typename T>
-	void delete_stack(stack_t<T>* p_this)
+	void delete_linear_queue(linear_queue_t<T>* p_this)
 	{
+		assert(p_this != nullptr);
+
 		free(p_this->p_data);
 		p_this->p_data = nullptr;
 
-		p_this->top = 0;
-		p_this->capacity = 0;
+		p_this->front = -1;
+		p_this->back = -1;
 	}
 
 	template<typename T>
-	bool is_full(const stack_t<T>* p_this)
+	bool is_empty(const linear_queue_t<T>* p_this)
 	{
 		assert(p_this != nullptr);
 		assert(p_this->p_data != nullptr);
 
-		return p_this->top == p_this->capacity;
+		return p_this->front + 1 == p_this->back;
 	}
 
 	template<typename T>
-	bool is_empty(const stack_t<T>* p_this)
+	bool is_full(const linear_queue_t<T>* p_this)
 	{
 		assert(p_this != nullptr);
 		assert(p_this->p_data != nullptr);
 
-		return p_this->top == 0;
+		return p_this->back == p_this->capacity;
 	}
 
 	template<typename T>
-	void push(stack_t<T>* p_this, const T value)
+	void enqueue(linear_queue_t<T>* p_this, const T value)
 	{
 		assert(p_this != nullptr);
 		assert(p_this->p_data != nullptr);
@@ -70,33 +76,30 @@ namespace stack
 
 			free(p_this->p_data);
 
-			p_this->p_data = p_data;
 			p_this->capacity *= 2;
+			p_this->p_data = p_data;
 		}
 
-		p_this->p_data[(p_this->top)++] = value;
+		p_this->p_data[p_this->back++] = value;
 	}
 
 	template<typename T>
-	T pop(stack_t<T>* p_this)
+	T dequeue(linear_queue_t<T>* p_this)
 	{
 		assert(p_this != nullptr);
 		assert(p_this->p_data != nullptr);
 		assert(!is_empty(p_this));
 
-		T backup = p_this->p_data[p_this->top - 1];
-		--(p_this->top);
-
-		return backup;
+		return p_this->p_data[++p_this->front];
 	}
 
 	template<typename T>
-	T peek(const stack_t<T>* p_this)
+	T peek(linear_queue_t<T>* p_this)
 	{
 		assert(p_this != nullptr);
 		assert(p_this->p_data != nullptr);
 		assert(!is_empty(p_this));
 
-		return p_this->p_data[p_this->top - 1];
+		return p_this->p_data[p_this->front + 1];
 	}
 }

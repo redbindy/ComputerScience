@@ -1,6 +1,6 @@
 #include "matrix.h"
 
-void matrix_transpose(const int input[ROWS][COLS], int output[ROWS][COLS])
+void matrix::transpose(const int input[ROWS][COLS], int output[ROWS][COLS])
 {
 	for (int row = 0; row < ROWS; ++row) {
 		for (int col = 0; col < COLS; ++col) {
@@ -9,7 +9,7 @@ void matrix_transpose(const int input[ROWS][COLS], int output[ROWS][COLS])
 	}
 }
 
-void matrix_print(const int mat[ROWS][COLS])
+void matrix::print(const int mat[ROWS][COLS])
 {
 	for (int row = 0; row < ROWS; ++row) {
 		for (int col = 0; col < COLS; ++col) {
@@ -20,7 +20,7 @@ void matrix_print(const int mat[ROWS][COLS])
 	printf("\n");
 }
 
-void sparse_matrix_transpose(const sparse_matrix_t* p_input, sparse_matrix_t* p_output)
+void matrix::sparse::transpose(const sparse_matrix_t* p_input, sparse_matrix_t* p_output)
 {
 	*p_output = *p_input;
 	p_output->rows = p_input->cols;
@@ -44,7 +44,7 @@ void sparse_matrix_transpose(const sparse_matrix_t* p_input, sparse_matrix_t* p_
 	}
 }
 
-void sparse_matrix_print(const sparse_matrix_t* p_mat)
+void matrix::sparse::print(const sparse_matrix_t* p_mat)
 {
 	printf("(row, col, value)\n");
 	for (int i = 0; i < p_mat->values; ++i) {
