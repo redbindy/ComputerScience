@@ -34,7 +34,7 @@ namespace ring_queue
 	}
 
 	template<typename T>
-	void delete_ring_queue(ring_queue_t<T>* p_this)
+	void delete_ring_queue(ring_queue_t<T>* const p_this)
 	{
 		assert(p_this != nullptr);
 
@@ -49,7 +49,7 @@ namespace ring_queue
 	}
 
 	template<typename T>
-	bool is_empty(const ring_queue_t<T>* p_this)
+	bool is_empty(const ring_queue_t<T>* const p_this)
 	{
 		assert(p_this != nullptr);
 		assert(p_this->p_data != nullptr);
@@ -58,7 +58,7 @@ namespace ring_queue
 	}
 
 	template<typename T>
-	bool is_full(const ring_queue_t<T>* p_this)
+	bool is_full(const ring_queue_t<T>* const p_this)
 	{
 		assert(p_this != nullptr);
 		assert(p_this->p_data != nullptr);
@@ -67,7 +67,7 @@ namespace ring_queue
 	}
 
 	template<typename T>
-	void enqueue(ring_queue_t<T>* p_this, const T value)
+	void enqueue(ring_queue_t<T>* const p_this, const T value)
 	{
 		assert(p_this != nullptr);
 		assert(p_this->p_data != nullptr);
@@ -91,7 +91,7 @@ namespace ring_queue
 	}
 
 	template<typename T>
-	T dequeue(ring_queue_t<T>* p_this)
+	T dequeue(ring_queue_t<T>* const p_this)
 	{
 		assert(p_this != nullptr);
 		assert(p_this->p_data != nullptr);
@@ -106,7 +106,7 @@ namespace ring_queue
 	}
 
 	template<typename T>
-	T peek(const ring_queue_t<T>* p_this)
+	T peek(const ring_queue_t<T>* const p_this)
 	{
 		assert(p_this != nullptr);
 		assert(p_this->p_data != nullptr);

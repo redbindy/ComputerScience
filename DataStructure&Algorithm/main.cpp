@@ -13,18 +13,23 @@
 #include "queue/ring_queue.h"
 #include "queue/queue_application.h"
 #include "queue/deque.h"
+#include "list/array_list.h"
+#include "list/singly_linked_list.h"
+#include "list/linked_list_application.h"
 
 void test_recursion();
 void test_array();
 void test_stack();
 void test_queue();
+void test_list();
 
 int main(void)
 {
 	// test_recursion();
 	// test_array();
 	// test_stack();
-	test_queue();
+	// test_queue();
+	test_list();
 
 	return 0;
 }
@@ -63,37 +68,37 @@ void test_recursion()
 
 		// power
 		{
-			double base = 2;
-			uint32_t exponent = 0;
+			double coeff = 2;
+			uint32_t exp = 0;
 			double expected = 1;
-			assert(abs(get_power(base, exponent) - expected) <= DBL_EPSILON);
-			assert(abs(get_power_recursive(base, exponent) - expected) <= DBL_EPSILON);
+			assert(abs(get_power(coeff, exp) - expected) <= DBL_EPSILON);
+			assert(abs(get_power_recursive(coeff, exp) - expected) <= DBL_EPSILON);
 
-			exponent = 1;
+			exp = 1;
 			expected = 2;
-			assert(abs(get_power(base, exponent) - expected) <= DBL_EPSILON);
-			assert(abs(get_power_recursive(base, exponent) - expected) <= DBL_EPSILON);
+			assert(abs(get_power(coeff, exp) - expected) <= DBL_EPSILON);
+			assert(abs(get_power_recursive(coeff, exp) - expected) <= DBL_EPSILON);
 
-			exponent = 10;
+			exp = 10;
 			expected = 1024;
-			assert(abs(get_power(base, exponent) - expected) <= DBL_EPSILON);
-			assert(abs(get_power_recursive(base, exponent) - expected) <= DBL_EPSILON);
+			assert(abs(get_power(coeff, exp) - expected) <= DBL_EPSILON);
+			assert(abs(get_power_recursive(coeff, exp) - expected) <= DBL_EPSILON);
 
-			base = 3;
-			exponent = 0;
+			coeff = 3;
+			exp = 0;
 			expected = 1;
-			assert(abs(get_power(base, exponent) - expected) <= DBL_EPSILON);
-			assert(abs(get_power_recursive(base, exponent) - expected) <= DBL_EPSILON);
+			assert(abs(get_power(coeff, exp) - expected) <= DBL_EPSILON);
+			assert(abs(get_power_recursive(coeff, exp) - expected) <= DBL_EPSILON);
 
-			exponent = 1;
+			exp = 1;
 			expected = 3;
-			assert(abs(get_power(base, exponent) - expected) <= DBL_EPSILON);
-			assert(abs(get_power_recursive(base, exponent) - expected) <= DBL_EPSILON);
+			assert(abs(get_power(coeff, exp) - expected) <= DBL_EPSILON);
+			assert(abs(get_power_recursive(coeff, exp) - expected) <= DBL_EPSILON);
 
-			exponent = 5;
+			exp = 5;
 			expected = 243;
-			assert(abs(get_power(base, exponent) - expected) <= DBL_EPSILON);
-			assert(abs(get_power_recursive(base, exponent) - expected) <= DBL_EPSILON);
+			assert(abs(get_power(coeff, exp) - expected) <= DBL_EPSILON);
+			assert(abs(get_power_recursive(coeff, exp) - expected) <= DBL_EPSILON);
 		}
 
 		// fibonacci
@@ -485,5 +490,216 @@ void test_queue()
 			assert(remove_back(&deque) == 2);
 		}
 		delete_deque(&deque);
+	}
+}
+
+void test_list()
+{
+	// array list
+	{
+		using namespace array_list;
+		array_list_t<int> array_list = create<int>(3);
+		{
+			assert(is_empty(&array_list));
+			assert(!is_full(&array_list));
+
+			add_item(&array_list, 10);
+
+			assert(!is_empty(&array_list));
+			assert(!is_full(&array_list));
+			assert(get_item(&array_list, 0));
+
+			add_item(&array_list, 20);
+			insert_at(&array_list, 0, 1);
+
+			assert(array_list.count == 3);
+			assert(!is_empty(&array_list));
+			assert(is_full(&array_list));
+			
+			assert(get_item(&array_list, 0) == 1);
+			assert(get_item(&array_list, 1) == 10);
+			assert(get_item(&array_list, 2) == 20);
+
+			clear(&array_list);
+
+			assert(is_empty(&array_list));
+			assert(!is_full(&array_list));
+
+			insert_at(&array_list, 0, 10);
+			add_item(&array_list, 20);
+			insert_at(&array_list, 1, 30);
+			add_item(&array_list, 40);
+
+			assert(!is_empty(&array_list));
+			assert(!is_full(&array_list));
+
+			assert(get_item(&array_list, 0) == 10);
+			assert(get_item(&array_list, 1) == 30);
+			assert(get_item(&array_list, 2) == 20);
+			assert(get_item(&array_list, 3) == 40);
+		}
+		delete_array_list(&array_list);
+	}
+
+	// singly linked list
+	{
+		using namespace singly_linked_list;
+		node_t<int>* p_head = create_singly_node_malloc(0);
+		{
+			print_list(p_head);
+
+			add_front(&p_head, 1);
+			add_front(&p_head, 2);
+			add_back(&p_head, 3);
+			add_back(&p_head, 4);
+
+			print_list(p_head);
+
+			remove_item(&p_head, 0);
+
+print_list(p_head);
+
+remove_item(&p_head, 3);
+
+print_list(p_head);
+		}
+		destroy(&p_head);
+
+		p_head = create_singly_node_malloc(0);
+		{
+			print_list(p_head);
+
+			p_head = add_last_recursive(p_head, 1);
+			p_head = add_last_recursive(p_head, 2);
+			p_head = add_last_recursive(p_head, 3);
+			p_head = add_last_recursive(p_head, 4);
+
+			print_list(p_head);
+
+			p_head = remove_item_recursive(p_head, 3);
+
+			print_list(p_head);
+		}
+		destroy_recursive(&p_head);
+
+		p_head = create_singly_node_malloc(0);
+		{
+			add_front(&p_head, 1);
+			add_front(&p_head, 2);
+			add_front(&p_head, 3);
+			add_front(&p_head, 4);
+			add_front(&p_head, 5);
+
+			print_list(p_head);
+
+			reverse_list(&p_head);
+
+			print_list(p_head);
+
+			p_head = reverse_list_recursive<int>(nullptr, p_head);
+
+			print_list(p_head);
+		}
+		destroy(&p_head);
+
+		node_t<int>* p_node0 = create_singly_node_malloc(0);
+		node_t<int>* p_node1 = create_singly_node_malloc(10);
+		{
+			add_front(&p_node0, 1);
+			add_front(&p_node0, 2);
+			add_front(&p_node0, 3);
+			add_front(&p_node0, 4);
+			add_front(&p_node0, 5);
+
+			print_list(p_node0);
+
+			add_front(&p_node1, 20);
+			add_front(&p_node1, 30);
+			add_front(&p_node1, 40);
+			add_front(&p_node1, 50);
+			add_front(&p_node1, 60);
+
+			print_list(p_node1);
+
+			interleave_recursive(p_node0, p_node1);
+			p_node1 = nullptr;
+
+			print_list(p_node0);
+		}
+		destroy(&p_node0);
+
+		p_node0 = create_singly_node_malloc(0);
+		p_node1 = create_singly_node_malloc(10);
+		{
+			add_front(&p_node0, 1);
+			add_front(&p_node0, 2);
+			add_front(&p_node0, 3);
+			add_front(&p_node0, 4);
+			add_front(&p_node0, 5);
+
+			print_list(p_node0);
+
+			add_front(&p_node1, 20);
+			add_front(&p_node1, 30);
+			add_front(&p_node1, 40);
+			add_front(&p_node1, 50);
+			add_front(&p_node1, 60);
+
+			print_list(p_node1);
+
+			interleave(p_node0, p_node1);
+			p_node1 = nullptr;
+
+			print_list(p_node0);
+		}
+		destroy(&p_node0);
+	}
+
+	// linked list application
+	{
+		using namespace linked_list_application;
+		term_node_t* p_lhs = make_term_malloc(5, 3);
+		{
+			print_polynomial(p_lhs);
+
+			term_node_t* p_rhs = make_term_malloc(4, 3);
+
+			print_polynomial(p_rhs);
+
+			add_polynomial(&p_lhs, p_rhs);
+
+			print_polynomial(p_lhs);
+		}
+		destroy_polynomial(&p_lhs);
+
+		p_lhs = make_term_malloc(1, 1);
+		{
+			term_node_t* p_rhs = make_term_malloc(1, -1);
+
+			add_polynomial(&p_lhs, p_rhs);
+		}
+		destroy_polynomial(&p_lhs);
+
+		p_lhs = make_term_malloc(5, 3);
+		{
+			add_polynomial(&p_lhs, make_term_malloc(-5, 3));
+			add_polynomial(&p_lhs, make_term_malloc(4, 2));
+			add_polynomial(&p_lhs, make_term_malloc(1, 1));
+			add_polynomial(&p_lhs, make_term_malloc(0, 10));
+
+			print_polynomial(p_lhs);
+
+			term_node_t* p_rhs = make_term_malloc(5, 3);
+			add_polynomial(&p_rhs, make_term_malloc(4, -2));
+			add_polynomial(&p_rhs, make_term_malloc(-3, -2));
+			add_polynomial(&p_rhs, make_term_malloc(0, -5));
+
+			print_polynomial(p_rhs);
+
+			add_polynomial(&p_lhs, p_rhs);
+
+			print_polynomial(p_lhs);
+		}
+		destroy_polynomial(&p_lhs);
 	}
 }

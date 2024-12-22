@@ -29,7 +29,7 @@ namespace stack
 	}
 
 	template<typename T>
-	void delete_stack(stack_t<T>* p_this)
+	void delete_stack(stack_t<T>* const p_this)
 	{
 		free(p_this->p_data);
 		p_this->p_data = nullptr;
@@ -39,7 +39,7 @@ namespace stack
 	}
 
 	template<typename T>
-	bool is_full(const stack_t<T>* p_this)
+	bool is_full(const stack_t<T>* const p_this)
 	{
 		assert(p_this != nullptr);
 		assert(p_this->p_data != nullptr);
@@ -48,7 +48,7 @@ namespace stack
 	}
 
 	template<typename T>
-	bool is_empty(const stack_t<T>* p_this)
+	bool is_empty(const stack_t<T>* const p_this)
 	{
 		assert(p_this != nullptr);
 		assert(p_this->p_data != nullptr);
@@ -57,7 +57,7 @@ namespace stack
 	}
 
 	template<typename T>
-	void push(stack_t<T>* p_this, const T value)
+	void push(stack_t<T>* const p_this, const T value)
 	{
 		assert(p_this != nullptr);
 		assert(p_this->p_data != nullptr);
@@ -78,7 +78,7 @@ namespace stack
 	}
 
 	template<typename T>
-	T pop(stack_t<T>* p_this)
+	T pop(stack_t<T>* const p_this)
 	{
 		assert(p_this != nullptr);
 		assert(p_this->p_data != nullptr);
@@ -91,7 +91,7 @@ namespace stack
 	}
 
 	template<typename T>
-	T peek(const stack_t<T>* p_this)
+	T peek(const stack_t<T>* const p_this)
 	{
 		assert(p_this != nullptr);
 		assert(p_this->p_data != nullptr);

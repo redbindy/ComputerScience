@@ -33,7 +33,7 @@ namespace linear_queue
 	}
 
 	template<typename T>
-	void delete_linear_queue(linear_queue_t<T>* p_this)
+	void delete_linear_queue(linear_queue_t<T>* const p_this)
 	{
 		assert(p_this != nullptr);
 
@@ -45,7 +45,7 @@ namespace linear_queue
 	}
 
 	template<typename T>
-	bool is_empty(const linear_queue_t<T>* p_this)
+	bool is_empty(const linear_queue_t<T>* const p_this)
 	{
 		assert(p_this != nullptr);
 		assert(p_this->p_data != nullptr);
@@ -54,7 +54,7 @@ namespace linear_queue
 	}
 
 	template<typename T>
-	bool is_full(const linear_queue_t<T>* p_this)
+	bool is_full(const linear_queue_t<T>* const p_this)
 	{
 		assert(p_this != nullptr);
 		assert(p_this->p_data != nullptr);
@@ -63,7 +63,7 @@ namespace linear_queue
 	}
 
 	template<typename T>
-	void enqueue(linear_queue_t<T>* p_this, const T value)
+	void enqueue(linear_queue_t<T>* const p_this, const T value)
 	{
 		assert(p_this != nullptr);
 		assert(p_this->p_data != nullptr);
@@ -84,7 +84,7 @@ namespace linear_queue
 	}
 
 	template<typename T>
-	T dequeue(linear_queue_t<T>* p_this)
+	T dequeue(linear_queue_t<T>* const p_this)
 	{
 		assert(p_this != nullptr);
 		assert(p_this->p_data != nullptr);
@@ -94,7 +94,7 @@ namespace linear_queue
 	}
 
 	template<typename T>
-	T peek(linear_queue_t<T>* p_this)
+	T peek(linear_queue_t<T>* const p_this)
 	{
 		assert(p_this != nullptr);
 		assert(p_this->p_data != nullptr);

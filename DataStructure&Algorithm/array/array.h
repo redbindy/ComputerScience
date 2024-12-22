@@ -25,7 +25,7 @@ namespace array
 	}
 
 	template<typename T>
-	void delete_array(array_t<T>* p_this)
+	void delete_array(array_t<T>* const p_this)
 	{
 		free(p_this->p_data);
 		p_this->p_data = nullptr;
@@ -34,7 +34,7 @@ namespace array
 	}
 
 	template<typename T>
-	T get(const array_t<T>* p_this, const size_t index)
+	T get(const array_t<T>* const p_this, const size_t index)
 	{
 		assert(p_this != nullptr);
 		assert(p_this->p_data != nullptr);
@@ -44,7 +44,7 @@ namespace array
 	}
 
 	template<typename T>
-	void set(array_t<T>* p_this, const size_t index, const T value)
+	void set(array_t<T>* const p_this, const size_t index, const T value)
 	{
 		assert(p_this != nullptr);
 		assert(p_this->p_data != nullptr);

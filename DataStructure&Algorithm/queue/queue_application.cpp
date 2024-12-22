@@ -11,7 +11,7 @@ static_assert(PRODUCE_COUNT > CONSUME_COUNT);
 
 static std::atomic_flag s_is_locked = ATOMIC_FLAG_INIT;
 
-static void produce(ring_queue_t<int>* p_buffer)
+static void produce(ring_queue_t<int>* const p_buffer)
 {
 	assert(p_buffer != nullptr);
 
@@ -31,7 +31,7 @@ static void produce(ring_queue_t<int>* p_buffer)
 	s_is_locked.clear();
 }
 
-static void consume(ring_queue_t<int>* p_buffer)
+static void consume(ring_queue_t<int>* const p_buffer)
 {
 	assert(p_buffer != nullptr);
 

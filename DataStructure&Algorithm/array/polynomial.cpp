@@ -1,6 +1,6 @@
 #include "polynomial.h"
 
-polynomial::polynomial_t polynomial::add(const polynomial_t* lhs, const polynomial_t* rhs)
+polynomial::polynomial_t polynomial::add(const polynomial_t* const lhs, const polynomial_t* const rhs)
 {
 	assert(lhs != nullptr);
 	assert(rhs != nullptr);
@@ -42,7 +42,7 @@ polynomial::polynomial_t polynomial::add(const polynomial_t* lhs, const polynomi
 	return result;
 }
 
-void polynomial::print(const polynomial_t* __restrict poly)
+void polynomial::print(const polynomial_t* __restrict const poly)
 {
 	int i;
 	for (i = 0; i < poly->degree; ++i) {
@@ -66,11 +66,11 @@ static polynomial::term::polynomial_term_t s_terms[polynomial::MAX_DEGREE + 1] =
 
 static int s_avail = 6;
 
-void polynomial::term::attach(const float coefficient, const int exponent)
+void polynomial::term::attach(const float coefficient, const int exp)
 {
 	assert(s_avail < MAX_DEGREE + 1);
 
-	s_terms[s_avail++] = { coefficient, exponent };
+	s_terms[s_avail++] = { coefficient, exp };
 }
 
 
@@ -89,10 +89,10 @@ void polynomial::term::add(
 
 	float temp_coef = 0;
 	while (lhs_index <= lhs_end && rhs_index <= rhs_end) {
-		const int lhs_exp = s_terms[lhs_index].exponent;
-		const int rhs_exp = s_terms[rhs_index].exponent;
+		const int lhs_exp = s_terms[lhs_index].exp;
+		const int rhs_exp = s_terms[rhs_index].exp;
 		if (lhs_exp > rhs_exp) {
-			attach(s_terms[lhs_index].coefficient, s_terms[lhs_index].exponent);
+			attach(s_terms[lhs_index].coefficient, s_terms[lhs_index].exp);
 			++lhs_index;
 		}
 		else if (lhs_exp == rhs_exp) {
@@ -106,18 +106,18 @@ void polynomial::term::add(
 			++rhs_index;
 		}
 		else {
-			attach(s_terms[rhs_index].coefficient, s_terms[rhs_index].exponent);
+			attach(s_terms[rhs_index].coefficient, s_terms[rhs_index].exp);
 			++rhs_index;
 		}
 	}
 
 	while (lhs_index <= lhs_end) {
-		attach(s_terms[lhs_index].coefficient, s_terms[lhs_index].exponent);
+		attach(s_terms[lhs_index].coefficient, s_terms[lhs_index].exp);
 		++lhs_index;
 	}
 
 	while (rhs_index <= rhs_end) {
-		attach(s_terms[rhs_index].coefficient, s_terms[rhs_index].exponent);
+		attach(s_terms[rhs_index].coefficient, s_terms[rhs_index].exp);
 		++rhs_index;
 	}
 
@@ -137,14 +137,14 @@ void polynomial::term::print(const int start, const int end)
 			continue;
 		}
 
-		printf("%.fx^%d + ", s_terms[i].coefficient, s_terms[i].exponent);
+		printf("%.fx^%d + ", s_terms[i].coefficient, s_terms[i].exp);
 	}
 
-	if (s_terms[i].exponent == 0) {
+	if (s_terms[i].exp == 0) {
 		printf("%.f", s_terms[i].coefficient);
 	}
 	else {
-		printf("%.fx^%d", s_terms[i].coefficient, s_terms[i].exponent);
+		printf("%.fx^%d", s_terms[i].coefficient, s_terms[i].exp);
 	}
 	printf("\n");
 }

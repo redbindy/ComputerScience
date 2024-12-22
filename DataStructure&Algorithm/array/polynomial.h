@@ -16,17 +16,17 @@ namespace polynomial
 		float coefficients[MAX_DEGREE + 1];
 	} polynomial_t;
 
-	polynomial_t add(const polynomial_t* lhs, const polynomial_t* rhs);
-	void print(const polynomial_t* __restrict poly);
+	polynomial::polynomial_t add(const polynomial_t* const lhs, const polynomial_t* const rhs);
+	void print(const polynomial_t* __restrict const poly);
 
 	namespace term
 	{
 		typedef struct {
 			float coefficient;
-			int exponent;
+			int exp;
 		} polynomial_term_t;
 
-		void attach(const float coefficient, const int exponent);
+		void attach(const float coefficient, const int exp);
 
 		void add(
 			const int lhs_start, const int lhs_end,

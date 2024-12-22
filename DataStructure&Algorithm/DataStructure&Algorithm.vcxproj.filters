@@ -25,6 +25,9 @@
     <Filter Include="queue">
       <UniqueIdentifier>{e1a3ec28-1c8c-402b-9419-46ef411326c4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="list">
+      <UniqueIdentifier>{7ac18b6f-1c2a-4f58-8d0f-453ce709eac4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -44,6 +47,9 @@
     </ClCompile>
     <ClCompile Include="queue\queue_application.cpp">
       <Filter>queue</Filter>
+    </ClCompile>
+    <ClCompile Include="list\linked_list_application.cpp">
+      <Filter>list</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -76,6 +82,15 @@
     </ClInclude>
     <ClInclude Include="queue\deque.h">
       <Filter>queue</Filter>
+    </ClInclude>
+    <ClInclude Include="list\array_list.h">
+      <Filter>list</Filter>
+    </ClInclude>
+    <ClInclude Include="list\singly_linked_list.h">
+      <Filter>list</Filter>
+    </ClInclude>
+    <ClInclude Include="list\linked_list_application.h">
+      <Filter>list</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

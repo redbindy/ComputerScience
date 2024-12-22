@@ -10,10 +10,10 @@
 
 namespace stack_application
 {
-	bool is_valid_parentheses(const char* p_str, const size_t len);
+	bool is_valid_parentheses(const char* const p_str, const size_t len);
 
-	double calculate_postfix_expression(const char* p_expression);
-	void convert_infix_to_postfix(const char* p_expression, char* p_out_result);
+	double calculate_postfix_expression(const char* const p_expression);
+	void convert_infix_to_postfix(const char* const p_expression, char* const p_out_result);
 
 	typedef struct {
 		int x;

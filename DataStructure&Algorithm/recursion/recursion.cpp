@@ -33,27 +33,27 @@ uint32_t recursion::get_factorial(const uint32_t n)
 	return result;
 }
 
-double recursion::get_power(const double base, const uint32_t exponent)
+double recursion::get_power(const double coeff, const uint32_t exp)
 {
 	double result = 1;
-	for (uint32_t i = 0; i < exponent; ++i) {
-		result *= base;
+	for (uint32_t i = 0; i < exp; ++i) {
+		result *= coeff;
 	}
 
 	return result;
 }
 
-double recursion::get_power_recursive(const double base, const uint32_t exponent)
+double recursion::get_power_recursive(const double coeff, const uint32_t exp)
 {
-	if (exponent == 0) {
+	if (exp == 0) {
 		return 1;
 	}
 
-	if (exponent % 2 == 0) {
-		return get_power_recursive(base * base, exponent / 2);
+	if (exp % 2 == 0) {
+		return get_power_recursive(coeff * coeff, exp / 2);
 	}
 
-	return base * get_power_recursive(base * base, (exponent - 1) / 2);
+	return coeff * get_power_recursive(coeff * coeff, (exp - 1) / 2);
 }
 
 uint32_t recursion::get_fibonacci_recursive(const uint32_t n)
@@ -93,10 +93,10 @@ uint32_t recursion::get_fibonacci(const uint32_t n)
 	uint32_t curr = 1;
 
 	for (int i = n; i > 1; --i) {
-		const uint32_t next = curr + prev;
+		const uint32_t p_next = curr + prev;
 
 		prev = curr;
-		curr = next;
+		curr = p_next;
 	}
 
 	return curr;

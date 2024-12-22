@@ -34,7 +34,7 @@ namespace deque
 	}
 
 	template<typename T>
-	void delete_deque(deque_t<T>* p_this)
+	void delete_deque(deque_t<T>* const p_this)
 	{
 		assert(p_this != nullptr);
 
@@ -49,7 +49,7 @@ namespace deque
 	}
 
 	template<typename T>
-	bool is_empty(const deque_t<T>* p_this)
+	bool is_empty(const deque_t<T>* const p_this)
 	{
 		assert(p_this != nullptr);
 		assert(p_this->p_data != nullptr);
@@ -58,7 +58,7 @@ namespace deque
 	}
 
 	template<typename T>
-	bool is_full(const deque_t<T>* p_this)
+	bool is_full(const deque_t<T>* const p_this)
 	{
 		assert(p_this != nullptr);
 		assert(p_this->p_data != nullptr);
@@ -67,7 +67,7 @@ namespace deque
 	}
 
 	template<typename T>
-	static void extend_deque(deque_t<T>* p_this)
+	static void extend_deque(deque_t<T>* const p_this)
 	{
 		deque_t<T> backup_this = *p_this;
 
@@ -82,7 +82,7 @@ namespace deque
 	}
 
 	template<typename T>
-	void add_front(deque_t<T>* p_this, const T value)
+	void add_front(deque_t<T>* const p_this, const T value)
 	{
 		assert(p_this != nullptr);
 		assert(p_this->p_data != nullptr);
@@ -98,7 +98,7 @@ namespace deque
 	}
 
 	template<typename T>
-	void add_back(deque_t<T>* p_this, const T value)
+	void add_back(deque_t<T>* const p_this, const T value)
 	{
 		assert(p_this != nullptr);
 		assert(p_this->p_data != nullptr);
@@ -114,7 +114,7 @@ namespace deque
 	}
 
 	template<typename T>
-	T remove_front(deque_t<T>* p_this)
+	T remove_front(deque_t<T>* const p_this)
 	{
 		assert(p_this != nullptr);
 		assert(p_this->p_data != nullptr);
@@ -128,7 +128,7 @@ namespace deque
 	}
 
 	template<typename T>
-	T remove_back(deque_t<T>* p_this)
+	T remove_back(deque_t<T>* const p_this)
 	{
 		assert(p_this != nullptr);
 		assert(p_this->p_data != nullptr);
@@ -142,7 +142,7 @@ namespace deque
 	}
 
 	template<typename T>
-	T peek_front(const deque_t<T>* p_this)
+	T peek_front(const deque_t<T>* const p_this)
 	{
 		assert(p_this != nullptr);
 		assert(p_this->p_data != nullptr);
@@ -152,7 +152,7 @@ namespace deque
 	}
 
 	template<typename T>
-	T peek_back(const deque_t<T>* p_this)
+	T peek_back(const deque_t<T>* const p_this)
 	{
 		assert(p_this != nullptr);
 		assert(p_this->p_data != nullptr);

@@ -2,7 +2,7 @@
 
 using namespace stack;
 
-bool stack_application::is_valid_parentheses(const char* p_str, const size_t len)
+bool stack_application::is_valid_parentheses(const char* const p_str, const size_t len)
 {
 	assert(p_str != nullptr);
 
@@ -75,7 +75,7 @@ enum {
 	DEFAULT_CAPACITY = 100
 };
 
-double stack_application::calculate_postfix_expression(const char* p_expression)
+double stack_application::calculate_postfix_expression(const char* const p_expression)
 {
 	assert(p_expression != nullptr);
 	// 올바른 형식만 입력으로 들어온다고 가정
@@ -146,7 +146,7 @@ double stack_application::calculate_postfix_expression(const char* p_expression)
 	return result;
 }
 
-void stack_application::convert_infix_to_postfix(const char* p_expression, char* p_out_result)
+void stack_application::convert_infix_to_postfix(const char* const p_expression, char* const p_out_result)
 {
 	assert(p_expression != nullptr);
 	assert(p_out_result != nullptr);

@@ -11,8 +11,8 @@ namespace recursion
 	uint32_t get_factorial_tail_recursive(const uint32_t n, const uint32_t curr);
 	uint32_t get_factorial(const uint32_t n);
 
-	double get_power(const double base, const uint32_t exponent);
-	double get_power_recursive(const double base, const uint32_t exponent);
+	double get_power(const double coeff, const uint32_t exp);
+	double get_power_recursive(const double coeff, const uint32_t exp);
 
 	uint32_t get_fibonacci_recursive(const uint32_t n);
 	uint32_t get_fibonacci_tail_recursive(const uint32_t n);

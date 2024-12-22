@@ -28,7 +28,7 @@ namespace matrix
 			int values;
 		} sparse_matrix_t;
 
-		void transpose(const sparse_matrix_t* p_input, sparse_matrix_t* p_output);
-		void print(const sparse_matrix_t* p_mat);
+		void transpose(const sparse_matrix_t* const p_input, sparse_matrix_t* const p_output);
+		void print(const sparse_matrix_t* const p_mat);
 	};
 }

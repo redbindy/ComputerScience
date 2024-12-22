@@ -20,7 +20,7 @@ void matrix::print(const int mat[ROWS][COLS])
 	printf("\n");
 }
 
-void matrix::sparse::transpose(const sparse_matrix_t* p_input, sparse_matrix_t* p_output)
+void matrix::sparse::transpose(const sparse_matrix_t* const p_input, sparse_matrix_t* const p_output)
 {
 	*p_output = *p_input;
 	p_output->rows = p_input->cols;
@@ -44,7 +44,7 @@ void matrix::sparse::transpose(const sparse_matrix_t* p_input, sparse_matrix_t* 
 	}
 }
 
-void matrix::sparse::print(const sparse_matrix_t* p_mat)
+void matrix::sparse::print(const sparse_matrix_t* const p_mat)
 {
 	printf("(row, col, value)\n");
 	for (int i = 0; i < p_mat->values; ++i) {
