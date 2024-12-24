@@ -1,7 +1,8 @@
-#include <cstdio>
 #include <cassert>
 #include <cmath>
 #include <cfloat>
+#include <cstdint>
+#include <cstring>
 
 #include "recursion/recursion.h"
 #include "array/array.h"
@@ -16,6 +17,10 @@
 #include "list/array_list.h"
 #include "list/singly_linked_list.h"
 #include "list/linked_list_application.h"
+#include "list/ring_liked_list.h"
+#include "list/doubly_linked_list.h"
+#include "list/linked_stack.h"
+#include "list/linked_queue.h"
 
 void test_recursion();
 void test_array();
@@ -515,7 +520,7 @@ void test_list()
 			assert(array_list.count == 3);
 			assert(!is_empty(&array_list));
 			assert(is_full(&array_list));
-			
+
 			assert(get_item(&array_list, 0) == 1);
 			assert(get_item(&array_list, 1) == 10);
 			assert(get_item(&array_list, 2) == 20);
@@ -557,11 +562,11 @@ void test_list()
 
 			remove_item(&p_head, 0);
 
-print_list(p_head);
+			print_list(p_head);
 
-remove_item(&p_head, 3);
+			remove_item(&p_head, 3);
 
-print_list(p_head);
+			print_list(p_head);
 		}
 		destroy(&p_head);
 
@@ -701,5 +706,133 @@ print_list(p_head);
 			print_polynomial(p_lhs);
 		}
 		destroy_polynomial(&p_lhs);
+	}
+
+	// ring linked list
+	{
+		using namespace ring_linked_list;
+		node_t<int>* p_node = create_ring_node_malloc(1);
+		{
+			add_front(&p_node, 2);
+			add_front(&p_node, 3);
+
+			print_list(p_node);
+		}
+		destroy(&p_node);
+
+		p_node = create_ring_node_malloc(1);
+		{
+			add_back(&p_node, 2);
+			add_back(&p_node, 3);
+
+			print_list(p_node);
+		}
+		destroy(&p_node);
+
+		// ring linked list application - multi-player game
+		node_t<const char*>* p_game_turn = create_ring_node_malloc("Player1");
+		{
+			add_back(&p_game_turn, "Player2");
+			add_back(&p_game_turn, "Player3");
+
+			p_game_turn = p_game_turn->p_next;
+			for (int i = 0; i < 10; ++i) {
+				printf("Turn %d: %s\n", i + 1, p_game_turn->data);
+				p_game_turn = p_game_turn->p_next;
+			}
+		}
+		destroy(&p_game_turn);
+	}
+
+	// doubly linked list
+	{
+		using namespace doubly_linked_list;
+		node_t<int>* p_node = create_doubly_node_malloc(1);
+		{
+			add_prev(p_node, 2);
+			add_prev(p_node, 3);
+			add_next(p_node, 10);
+			add_next(p_node, 20);
+			add_next(p_node, 30);
+
+			print_list(p_node);
+		}
+		destroy(&p_node);
+
+		// doubly linked list application - mp3 player
+		node_t<const char*>* p_name_node = create_doubly_node_malloc("s0");
+		{
+			add_next(p_name_node, "s1");
+			add_next(p_name_node, "s2");
+			add_next(p_name_node, "s3");
+			add_next(p_name_node, "s4");
+			add_next(p_name_node, "s5");
+
+			printf("a: prev d: next x: escape\n");
+			printf("----------start----------\n");
+			printf("Playing: %s\n", p_name_node->data);
+			while (true) {
+				const char input = getchar();
+
+				switch (input) {
+				case 'a':
+					p_name_node = p_name_node->p_prev;
+					printf("Playing: %s\n", p_name_node->data);
+					break;
+
+				case 'd':
+					p_name_node = p_name_node->p_next;
+					printf("Playing: %s\n", p_name_node->data);
+					break;
+
+				case 'x':
+					goto END;
+
+				default:
+					break;
+				}
+			}
+		END:
+			printf("-----------end-----------\n");
+		}
+		destroy(&p_name_node);
+	}
+
+	// linked stack
+	{
+		using namespace linked_stack;
+		linked_stack_t<int> stack = create(1);
+		{
+			printf("%d ", peek(&stack));
+			push(&stack, 2);
+			printf("%d ", peek(&stack));
+			push(&stack, 3);
+			printf("%d ", peek(&stack));
+
+			printf("%d ", pop(&stack));
+			printf("%d ", pop(&stack));
+			printf("%d ", pop(&stack));
+			printf("\n");
+		}
+		linked_stack::destroy(&stack);
+	}
+
+	// linked queue
+	{
+		using namespace linked_queue;
+		linked_queue_t<int> queue = create(1);
+		{
+			printf("%d ", peek(&queue));
+			enqueue(&queue, 2);
+			printf("%d ", peek(&queue));
+			enqueue(&queue, 3);
+			printf("%d ", peek(&queue));
+
+			printf("%d ", dequeue(&queue));
+			printf("%d ", dequeue(&queue));
+			printf("%d ", dequeue(&queue));
+			printf("\n");
+		}
+		destroy(&queue);
 	}
 }

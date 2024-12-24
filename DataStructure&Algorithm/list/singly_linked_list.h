@@ -63,10 +63,10 @@ namespace singly_linked_list
 	{
 		assert(pp_head != nullptr);
 
-		node_t<T>* const new_node = create_singly_node_malloc(value);
-		new_node->p_next = *pp_head;
+		node_t<T>* const p_new_node = create_singly_node_malloc(value);
+		p_new_node->p_next = *pp_head;
 
-		*pp_head = new_node;
+		*pp_head = p_new_node;
 	}
 
 	template<typename T>
@@ -74,15 +74,15 @@ namespace singly_linked_list
 	{
 		assert(pp_head != nullptr);
 
-		node_t<T>* const new_node = create_singly_node_malloc(value);
-		new_node->p_next = nullptr;
+		node_t<T>* const p_new_node = create_singly_node_malloc(value);
+		p_new_node->p_next = nullptr;
 
 		node_t<T>** pp_node = pp_head;
 		while (*pp_node != nullptr) {
 			pp_node = &((*pp_node)->p_next);
 		}
 
-		*pp_node = new_node;
+		*pp_node = p_new_node;
 	}
 
 	template<typename T>
@@ -90,8 +90,8 @@ namespace singly_linked_list
 	{
 		assert(pp_head != nullptr);
 
-		node_t<T>* const new_node = create_singly_node_malloc(value);
-		new_node->p_next = nullptr;
+		node_t<T>* const p_new_node = create_singly_node_malloc(value);
+		p_new_node->p_next = nullptr;
 
 		node_t<T>** pp_node = pp_head;
 		while (*pp_node != nullptr) {
@@ -101,8 +101,8 @@ namespace singly_linked_list
 
 			pp_node = &((*pp_node)->p_next);
 		}
-		new_node->p_next = *pp_node;
-		*pp_node = new_node;
+		p_new_node->p_next = *pp_node;
+		*pp_node = p_new_node;
 	}
 
 	template<typename T>

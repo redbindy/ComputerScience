@@ -142,7 +142,11 @@
     <ClInclude Include="array\matrix.h" />
     <ClInclude Include="array\polynomial.h" />
     <ClInclude Include="list\array_list.h" />
+    <ClInclude Include="list\doubly_linked_list.h" />
     <ClInclude Include="list\linked_list_application.h" />
+    <ClInclude Include="list\linked_queue.h" />
+    <ClInclude Include="list\linked_stack.h" />
+    <ClInclude Include="list\ring_liked_list.h" />
     <ClInclude Include="list\singly_linked_list.h" />
     <ClInclude Include="queue\deque.h" />
     <ClInclude Include="queue\linear_queue.h" />

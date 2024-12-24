@@ -92,5 +92,17 @@
     <ClInclude Include="list\linked_list_application.h">
       <Filter>list</Filter>
     </ClInclude>
+    <ClInclude Include="list\ring_liked_list.h">
+      <Filter>list</Filter>
+    </ClInclude>
+    <ClInclude Include="list\doubly_linked_list.h">
+      <Filter>list</Filter>
+    </ClInclude>
+    <ClInclude Include="list\linked_stack.h">
+      <Filter>list</Filter>
+    </ClInclude>
+    <ClInclude Include="list\linked_queue.h">
+      <Filter>list</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
