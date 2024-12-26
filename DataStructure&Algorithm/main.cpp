@@ -21,12 +21,17 @@
 #include "list/doubly_linked_list.h"
 #include "list/linked_stack.h"
 #include "list/linked_queue.h"
+#include "tree/binary_tree.h"
+#include "tree/binary_tree_application.h"
+#include "tree/threaded_binary_tree.h"
+#include "tree/binary_search_tree.h"
 
 void test_recursion();
 void test_array();
 void test_stack();
 void test_queue();
 void test_list();
+void test_tree();
 
 int main(void)
 {
@@ -34,7 +39,8 @@ int main(void)
 	// test_array();
 	// test_stack();
 	// test_queue();
-	test_list();
+	// test_list();
+	test_tree();
 
 	return 0;
 }
@@ -834,5 +840,223 @@ void test_list()
 			printf("\n");
 		}
 		destroy(&queue);
+	}
+}
+
+void test_tree()
+{
+	// binary tree traversal
+	{
+		using namespace binary_tree;
+		binary_tree_array_t<int> tree;
+		tree.capacity = 15;
+
+		tree.p_data = static_cast<int*>(malloc(sizeof(int) * tree.capacity));
+		tree.p_exist = static_cast<bool*>(malloc(sizeof(bool) * tree.capacity));
+		assert(tree.p_exist != nullptr);
+
+		memset(tree.p_exist, false, sizeof(bool) * tree.capacity);
+		{
+			tree.p_data[1] = 17;
+			tree.p_data[2] = 15;
+			tree.p_data[3] = 93;
+			tree.p_data[4] = 5;
+			tree.p_data[6] = 35;
+			tree.p_data[7] = 95;
+			tree.p_data[12] = 22;
+
+			tree.p_exist[1] = true;
+			tree.p_exist[2] = true;
+			tree.p_exist[3] = true;
+			tree.p_exist[4] = true;
+			tree.p_exist[6] = true;
+			tree.p_exist[7] = true;
+			tree.p_exist[12] = true;
+
+			print_preorder_recursive(&tree, 1);
+
+			printf("\n");
+		}
+		free(tree.p_exist);
+		free(tree.p_data);
+
+		binary_tree_node_t<int>* p_root = static_cast<binary_tree_node_t<int>*>(malloc(sizeof(binary_tree_node_t<int>)));
+		assert(p_root != nullptr);
+
+		p_root->data = 17;
+		{
+			binary_tree_node_t<int>* p_node0 = static_cast<binary_tree_node_t<int>*>(malloc(sizeof(binary_tree_node_t<int>)));
+			assert(p_node0 != nullptr);
+			p_node0->data = 15;
+
+			binary_tree_node_t<int>* p_node1 = static_cast<binary_tree_node_t<int>*>(malloc(sizeof(binary_tree_node_t<int>)));
+			assert(p_node1 != nullptr);
+			p_node1->data = 93;
+
+			binary_tree_node_t<int>* p_node2 = static_cast<binary_tree_node_t<int>*>(malloc(sizeof(binary_tree_node_t<int>)));
+			assert(p_node2 != nullptr);
+			p_node2->data = 5;
+
+			binary_tree_node_t<int>* p_node3 = static_cast<binary_tree_node_t<int>*>(malloc(sizeof(binary_tree_node_t<int>)));
+			assert(p_node3 != nullptr);
+			p_node3->data = 35;
+
+			binary_tree_node_t<int>* p_node4 = static_cast<binary_tree_node_t<int>*>(malloc(sizeof(binary_tree_node_t<int>)));
+			assert(p_node4 != nullptr);
+			p_node4->data = 95;
+
+			binary_tree_node_t<int>* p_node5 = static_cast<binary_tree_node_t<int>*>(malloc(sizeof(binary_tree_node_t<int>)));
+			assert(p_node5 != nullptr);
+			p_node5->data = 22;
+			{
+				p_root->p_left = p_node0;
+				p_root->p_right = p_node1;
+
+				p_node0->p_left = p_node2;
+				p_node0->p_right = nullptr;
+
+				p_node1->p_left = p_node3;
+				p_node1->p_right = p_node4;
+
+				p_node2->p_left = nullptr;
+				p_node2->p_right = nullptr;
+
+				p_node3->p_left = p_node5;
+				p_node3->p_right = nullptr;
+
+				p_node4->p_left = nullptr;
+				p_node4->p_right = nullptr;
+
+				p_node5->p_left = nullptr;
+				p_node5->p_right = nullptr;
+
+				print_preorder_recursive(p_root);
+				printf("\n");
+
+				print_inorder_recursive(p_root);
+				printf("\n");
+
+				print_postorder_recursive(p_root);
+				printf("\n");
+
+				print_preorder(p_root);
+				printf("\n");
+
+				print_inorder(p_root);
+				printf("\n");
+
+				print_postorder(p_root);
+				printf("\n");
+
+				print_bfs(p_root);
+				printf("\n");
+
+				printf("%d\n", get_node_count_recursive(p_root));
+				printf("%d\n", get_leaf_count_recursive(p_root));
+				printf("%d\n", get_height_recursive(p_root));
+			}
+			free(p_node5);
+			free(p_node4);
+			free(p_node3);
+			free(p_node2);
+			free(p_node1);
+			free(p_node0);
+		}
+		free(p_root);
+	}
+
+	// binary tree application
+	{
+		using namespace binary_tree_application;
+		using namespace binary_tree;
+		{
+			node_t n1 = { 1, nullptr, nullptr };
+			node_t n2 = { 4, nullptr, nullptr };
+			node_t n3 = { '*', &n1, &n2 };
+			node_t n4 = { 16, nullptr, nullptr };
+			node_t n5 = { 25, nullptr, nullptr };
+			node_t n6 = { '+', &n4, &n5 };
+			node_t n7 = { '+', &n3, &n6 };
+
+			const node_t* const p_root = &n7;
+
+			printf("%d\n", evaluate_expression_recursive(p_root));
+		}
+
+		{
+			node_t n4 = { 500, nullptr, nullptr };
+			node_t n5 = { 200, nullptr, nullptr };
+			node_t n3 = { 100, &n4, &n5 };
+			node_t n2 = { 50, nullptr, nullptr };
+			node_t n1 = { 0, &n2, &n3 };
+
+			printf("%d\n", calculate_folder_size_recursive(&n1));
+		}
+	}
+
+	// threaded binary tree
+	{
+		using namespace threaded_binary_tree;
+		{
+			threaded_tree_node_t<char> n1 = { 'A', nullptr, nullptr, true };
+			threaded_tree_node_t<char> n2 = { 'B', nullptr, nullptr, true };
+			threaded_tree_node_t<char> n3 = { 'C', &n1, &n2, true };
+			threaded_tree_node_t<char> n4 = { 'D', nullptr, nullptr, true };
+			threaded_tree_node_t<char> n5 = { 'E', nullptr, nullptr, false };
+			threaded_tree_node_t<char> n6 = { 'F', &n4, &n5, false };
+			threaded_tree_node_t<char> n7 = { 'G', &n3, &n6, false };
+
+			n1.p_right = &n3;
+			n2.p_right = &n7;
+			n4.p_right = &n6;
+
+			print_inorder(&n7);
+			printf("\n");
+		}
+	}
+
+	// binary search tree
+	{
+		using namespace binary_search_tree;
+		bst_node_t<int>* p_root = insert_recursive<int>(nullptr, 35);
+		{
+			p_root = insert_recursive(p_root, 18);
+			p_root = insert_recursive(p_root, 68);
+			p_root = insert_recursive(p_root, 7);
+			p_root = insert_recursive(p_root, 26);
+			p_root = insert_recursive(p_root, 3);
+			p_root = insert_recursive(p_root, 12);
+			p_root = insert_recursive(p_root, 22);
+			p_root = insert_recursive(p_root, 30);
+			p_root = insert_recursive(p_root, 99);
+
+			assert(search_recursive_or_null(p_root, 7)->key == 7);
+			assert(search_recursive_or_null(p_root, 100) == nullptr);
+
+			print_inorder_recursive(p_root);
+			printf("\n");
+
+			delete_recursive(p_root, 30);
+			print_inorder_recursive(p_root);
+			printf("\n");
+
+			delete_recursive(p_root, 68);
+			print_inorder_recursive(p_root);
+			printf("\n");
+
+			delete_recursive(p_root, 18);
+			print_inorder_recursive(p_root);
+			printf("\n");
+		}
+		destroy_recursive(&p_root);
+
+		bst_node_t<const char*>* p_dictionary = insert_recursive<const char*>(nullptr, "abc", strcmp);
+		{
+			p_dictionary = insert_recursive(p_dictionary, "bc", strcmp);
+			p_dictionary = insert_recursive(p_dictionary, "c", strcmp);
+			p_dictionary = insert_recursive(p_dictionary, "aab", strcmp);
+			p_dictionary = insert_recursive(p_dictionary, "aaa", strcmp);
+		}
+		destroy_recursive(&p_dictionary);
 	}
 }

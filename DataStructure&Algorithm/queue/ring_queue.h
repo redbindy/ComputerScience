@@ -77,7 +77,7 @@ namespace ring_queue
 			*p_this = create<T>(backup_this.capacity * 2);
 
 			while (!is_empty(&backup_this)) {
-				const int value = dequeue(&backup_this);
+				const T value = dequeue(&backup_this);
 				enqueue(p_this, value);
 			}
 
@@ -97,7 +97,7 @@ namespace ring_queue
 		assert(p_this->p_data != nullptr);
 		assert(!is_empty(p_this));
 
-		const int value = p_this->p_data[p_this->front];
+		const T value = p_this->p_data[p_this->front];
 		p_this->front = (p_this->front + 1) % p_this->capacity;
 
 		--(p_this->count);

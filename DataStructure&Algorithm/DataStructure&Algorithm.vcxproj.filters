@@ -28,6 +28,9 @@
     <Filter Include="list">
       <UniqueIdentifier>{7ac18b6f-1c2a-4f58-8d0f-453ce709eac4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="tree">
+      <UniqueIdentifier>{a7261418-63d0-4322-9672-16ae876d51da}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -50,6 +53,9 @@
     </ClCompile>
     <ClCompile Include="list\linked_list_application.cpp">
       <Filter>list</Filter>
+    </ClCompile>
+    <ClCompile Include="tree\binary_tree_application.cpp">
+      <Filter>tree</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -103,6 +109,21 @@
     </ClInclude>
     <ClInclude Include="list\linked_queue.h">
       <Filter>list</Filter>
+    </ClInclude>
+    <ClInclude Include="tree\binary_tree.h">
+      <Filter>tree</Filter>
+    </ClInclude>
+    <ClInclude Include="tree\tree.h">
+      <Filter>tree</Filter>
+    </ClInclude>
+    <ClInclude Include="tree\binary_tree_application.h">
+      <Filter>tree</Filter>
+    </ClInclude>
+    <ClInclude Include="tree\threaded_binary_tree.h">
+      <Filter>tree</Filter>
+    </ClInclude>
+    <ClInclude Include="tree\binary_search_tree.h">
+      <Filter>tree</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

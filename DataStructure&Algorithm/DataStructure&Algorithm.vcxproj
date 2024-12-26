@@ -136,6 +136,7 @@
     <ClCompile Include="queue\queue_application.cpp" />
     <ClCompile Include="recursion\recursion.cpp" />
     <ClCompile Include="stack\stack_application.cpp" />
+    <ClCompile Include="tree\binary_tree_application.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="array\array.h" />
@@ -155,6 +156,11 @@
     <ClInclude Include="recursion\recursion.h" />
     <ClInclude Include="stack\stack_application.h" />
     <ClInclude Include="stack\stack.h" />
+    <ClInclude Include="tree\binary_search_tree.h" />
+    <ClInclude Include="tree\binary_tree.h" />
+    <ClInclude Include="tree\binary_tree_application.h" />
+    <ClInclude Include="tree\threaded_binary_tree.h" />
+    <ClInclude Include="tree\tree.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

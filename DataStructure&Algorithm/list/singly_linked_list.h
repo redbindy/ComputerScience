@@ -106,15 +106,15 @@ namespace singly_linked_list
 	}
 
 	template<typename T>
-	node_t<T>* add_last_recursive(node_t<T>* const p_head, const int value)
+	node_t<T>* add_last_recursive(node_t<T>* const p_head_or_null, const int value)
 	{
-		if (p_head == nullptr) {
+		if (p_head_or_null == nullptr) {
 			return create_singly_node_malloc(value);
 		}
 
-		p_head->p_next = add_last_recursive(p_head->p_next, value);
+		p_head_or_null->p_next = add_last_recursive(p_head_or_null->p_next, value);
 
-		return p_head;
+		return p_head_or_null;
 	}
 
 	template<typename T>
@@ -139,23 +139,23 @@ namespace singly_linked_list
 	}
 
 	template<typename T>
-	node_t<T>* remove_item_recursive(node_t<T>* const p_head, const int value)
+	node_t<T>* remove_item_recursive(node_t<T>* const p_head_or_null, const int value)
 	{
-		if (p_head == nullptr) {
+		if (p_head_or_null == nullptr) {
 			return nullptr;
 		}
 
-		if (p_head->data == value) {
-			node_t<T>* p_next = p_head->p_next;
+		if (p_head_or_null->data == value) {
+			node_t<T>* p_next = p_head_or_null->p_next;
 
-			free(p_head);
+			free(p_head_or_null);
 
 			return p_next;
 		}
 
-		p_head->p_next = remove_item_recursive(p_head->p_next, value);
+		p_head_or_null->p_next = remove_item_recursive(p_head_or_null->p_next, value);
 
-		return p_head;
+		return p_head_or_null;
 	}
 
 	template<typename T>
@@ -176,32 +176,32 @@ namespace singly_linked_list
 	}
 
 	template<typename T>
-	node_t<T>* reverse_list_recursive(node_t<T>* const p_prev, node_t<T>* const p_node)
+	node_t<T>* reverse_list_recursive(node_t<T>* const p_prev, node_t<T>* const p_node_or_null)
 	{
-		if (p_node == nullptr)
+		if (p_node_or_null == nullptr)
 		{
 			return p_prev;
 		}
 
-		node_t<T>* ret = reverse_list_recursive(p_node, p_node->p_next);
+		node_t<T>* ret = reverse_list_recursive(p_node_or_null, p_node_or_null->p_next);
 
-		p_node->p_next = p_prev;
+		p_node_or_null->p_next = p_prev;
 
 		return ret;
 	}
 
 	template<typename T>
-	void interleave_recursive(node_t<T>* const p_front, node_t<T>* const p_back)
+	void interleave_recursive(node_t<T>* const p_front_or_null, node_t<T>* const p_back_or_null)
 	{
-		if (p_front == nullptr || p_back == nullptr)
+		if (p_front_or_null == nullptr || p_back_or_null == nullptr)
 		{
 			return;
 		}
 
-		node_t<T>* p_next = p_front->p_next;
+		node_t<T>* p_next = p_front_or_null->p_next;
 
-		p_front->p_next = p_back;
-		interleave_recursive(p_back, p_next);
+		p_front_or_null->p_next = p_back_or_null;
+		interleave_recursive(p_back_or_null, p_next);
 	}
 
 	template<typename T>
