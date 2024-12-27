@@ -25,6 +25,8 @@
 #include "tree/binary_tree_application.h"
 #include "tree/threaded_binary_tree.h"
 #include "tree/binary_search_tree.h"
+#include "priority_queue/heap.h"
+#include "priority_queue/heap_application.h"
 
 void test_recursion();
 void test_array();
@@ -32,6 +34,7 @@ void test_stack();
 void test_queue();
 void test_list();
 void test_tree();
+void test_priority_queue();
 
 int main(void)
 {
@@ -40,7 +43,8 @@ int main(void)
 	// test_stack();
 	// test_queue();
 	// test_list();
-	test_tree();
+	// test_tree();
+	test_priority_queue();
 
 	return 0;
 }
@@ -1058,5 +1062,58 @@ void test_tree()
 			p_dictionary = insert_recursive(p_dictionary, "aaa", strcmp);
 		}
 		destroy_recursive(&p_dictionary);
+	}
+}
+
+void test_priority_queue()
+{
+	// heap
+	{
+		using namespace heap;
+		heap_t<int> heap = create_heap<int>(4);
+		{
+			add(&heap, 10);
+			add(&heap, 5);
+			add(&heap, 30);
+
+			printf("%d ", poll(&heap));
+			printf("%d ", poll(&heap));
+			printf("%d\n", poll(&heap));
+		}
+		delete_heap(&heap);
+
+		// heap sort
+		heap = create_heap<int>(9);
+		{
+			add(&heap, 23);
+			add(&heap, 56);
+			add(&heap, 11);
+			add(&heap, 9);
+			add(&heap, 56);
+			add(&heap, 99);
+			add(&heap, 27);
+			add(&heap, 34);
+
+			while (!is_empty(&heap)) {
+				printf("%d ", poll(&heap));
+			}
+			printf("\n");
+		}
+		delete_heap(&heap);
+	}
+
+	// heap application
+	{
+		using namespace heap_application;
+		{
+			schedule_lpt();
+		}
+
+		{
+			const char ch_list[] = { 's', 'i', 'n', 't', 'e' };
+			const int freq[] = { 4, 6, 8, 12, 15 };
+
+			encode_huffman_tree(freq, ch_list, 5);
+		}
 	}
 }

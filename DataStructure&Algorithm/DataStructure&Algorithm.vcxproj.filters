@@ -31,6 +31,9 @@
     <Filter Include="tree">
       <UniqueIdentifier>{a7261418-63d0-4322-9672-16ae876d51da}</UniqueIdentifier>
     </Filter>
+    <Filter Include="priority_queue">
+      <UniqueIdentifier>{7db7d463-ddc4-4d17-a251-6aa4742e3463}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -56,6 +59,9 @@
     </ClCompile>
     <ClCompile Include="tree\binary_tree_application.cpp">
       <Filter>tree</Filter>
+    </ClCompile>
+    <ClCompile Include="priority_queue\heap_application.cpp">
+      <Filter>priority_queue</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -124,6 +130,12 @@
     </ClInclude>
     <ClInclude Include="tree\binary_search_tree.h">
       <Filter>tree</Filter>
+    </ClInclude>
+    <ClInclude Include="priority_queue\heap.h">
+      <Filter>priority_queue</Filter>
+    </ClInclude>
+    <ClInclude Include="priority_queue\heap_application.h">
+      <Filter>priority_queue</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
