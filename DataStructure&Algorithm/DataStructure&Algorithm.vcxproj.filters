@@ -34,6 +34,9 @@
     <Filter Include="priority_queue">
       <UniqueIdentifier>{7db7d463-ddc4-4d17-a251-6aa4742e3463}</UniqueIdentifier>
     </Filter>
+    <Filter Include="graph">
+      <UniqueIdentifier>{6b5c5285-670d-453e-a204-e545e9e97290}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -62,6 +65,18 @@
     </ClCompile>
     <ClCompile Include="priority_queue\heap_application.cpp">
       <Filter>priority_queue</Filter>
+    </ClCompile>
+    <ClCompile Include="graph\mst.cpp">
+      <Filter>graph</Filter>
+    </ClCompile>
+    <ClCompile Include="graph\shortest_path.cpp">
+      <Filter>graph</Filter>
+    </ClCompile>
+    <ClCompile Include="list\singly_linked_list.cpp">
+      <Filter>list</Filter>
+    </ClCompile>
+    <ClCompile Include="graph\topology_sort.cpp">
+      <Filter>graph</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -136,6 +151,21 @@
     </ClInclude>
     <ClInclude Include="priority_queue\heap_application.h">
       <Filter>priority_queue</Filter>
+    </ClInclude>
+    <ClInclude Include="graph\adjacent_matrix.h">
+      <Filter>graph</Filter>
+    </ClInclude>
+    <ClInclude Include="graph\adjacent_list.h">
+      <Filter>graph</Filter>
+    </ClInclude>
+    <ClInclude Include="graph\mst.h">
+      <Filter>graph</Filter>
+    </ClInclude>
+    <ClInclude Include="graph\shortest_path.h">
+      <Filter>graph</Filter>
+    </ClInclude>
+    <ClInclude Include="graph\topology_sort.h">
+      <Filter>graph</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

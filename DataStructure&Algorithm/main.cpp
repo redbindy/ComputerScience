@@ -27,6 +27,11 @@
 #include "tree/binary_search_tree.h"
 #include "priority_queue/heap.h"
 #include "priority_queue/heap_application.h"
+#include "graph/adjacent_matrix.h"
+#include "graph/adjacent_list.h"
+#include "graph/mst.h"
+#include "graph/shortest_path.h"
+#include "graph/topology_sort.h"
 
 void test_recursion();
 void test_array();
@@ -35,6 +40,7 @@ void test_queue();
 void test_list();
 void test_tree();
 void test_priority_queue();
+void test_graph();
 
 int main(void)
 {
@@ -44,7 +50,8 @@ int main(void)
 	// test_queue();
 	// test_list();
 	// test_tree();
-	test_priority_queue();
+	// test_priority_queue();
+	test_graph();
 
 	return 0;
 }
@@ -1115,5 +1122,260 @@ void test_priority_queue()
 
 			encode_huffman_tree(freq, ch_list, 5);
 		}
+	}
+}
+
+void test_graph()
+{
+	// adjacent matrix ADT
+	{
+		using namespace adjacent_matrix;
+		
+		int size = 4;
+
+		graph_t graph = create_graph(size);
+		{
+			print_adjacent_matrix(&graph);
+
+			for (int i = 0; i < size; ++i) {
+				insert_vertex(&graph, i);
+			}
+
+			print_adjacent_matrix(&graph);
+
+			insert_edge(&graph, 0, 1);
+			insert_edge(&graph, 0, 2);
+			insert_edge(&graph, 0, 3);
+			insert_edge(&graph, 1, 2);
+			insert_edge(&graph, 2, 3);
+
+			print_adjacent_matrix(&graph);
+
+			print_adjacent(&graph, 0);
+
+			delete_edge(&graph, 0, 1);
+
+			print_adjacent_matrix(&graph);
+
+			delete_vertex(&graph, 0);
+
+			print_adjacent_matrix(&graph);
+		}
+		destroy_graph(&graph);
+
+		size = 6;
+		graph = create_graph(size);
+		{
+			for (int i = 0; i < size; ++i) {
+				insert_vertex(&graph, i);
+			}
+
+			insert_edge(&graph, 0, 2);
+			insert_edge(&graph, 2, 1);
+			insert_edge(&graph, 2, 3);
+			insert_edge(&graph, 0, 4);
+			insert_edge(&graph, 4, 5);
+			insert_edge(&graph, 1, 5);
+
+			bool is_visited[6] = { false, };
+			print_dfs_recursive(&graph, 0, is_visited);
+			printf("\n");
+
+			memset(is_visited, false, sizeof(bool) * 6);
+			print_dfs(&graph, is_visited);
+			printf("\n");
+
+			memset(is_visited, false, sizeof(bool) * 6);
+			print_bfs(&graph, is_visited);
+			printf("\n");
+		}
+		destroy_graph(&graph);
+	}
+
+	// adjacent list ADT
+	{
+		using namespace adjacent_list;
+
+		int size = 4;
+
+		graph_t graph = create_graph(size);
+		{
+			print_adjacent_list (&graph);
+
+			for (int i = 0; i < size; ++i) {
+				insert_vertex(&graph, i);
+			}
+
+			print_adjacent_list(&graph);
+
+			insert_edge(&graph, 0, 1);
+			insert_edge(&graph, 0, 2);
+			insert_edge(&graph, 0, 3);
+			insert_edge(&graph, 1, 2);
+			insert_edge(&graph, 2, 3);
+
+			print_adjacent_list(&graph);
+
+			print_adjacent(&graph, 0);
+
+			delete_edge(&graph, 0, 1);
+
+			print_adjacent_list(&graph);
+
+			delete_vertex(&graph, 0);
+
+			print_adjacent_list(&graph);
+
+		}
+		destroy_graph(&graph);
+
+		size = 6;
+		graph = create_graph(size);
+		{
+			for (int i = 0; i < size; ++i) {
+				insert_vertex(&graph, i);
+			}
+
+			insert_edge(&graph, 0, 2);
+			insert_edge(&graph, 2, 1);
+			insert_edge(&graph, 2, 3);
+			insert_edge(&graph, 0, 4);
+			insert_edge(&graph, 4, 5);
+			insert_edge(&graph, 1, 5);
+
+			bool is_visited[6] = { false, };
+			print_dfs_recursive(&graph, graph.pp_nodes[0], is_visited);
+			printf("\n");
+
+			memset(is_visited, false, sizeof(bool) * 6);
+			print_dfs(&graph, is_visited);
+			printf("\n");
+
+			memset(is_visited, false, sizeof(bool) * 6);
+			print_bfs(&graph, is_visited);
+			printf("\n");
+		}
+		destroy_graph(&graph);
+	}
+
+	// MST algorithm
+	{
+		constexpr int NODE_COUNT = 7;
+
+		using namespace mst;
+		edge_graph_t edge_graph = create_edge_graph(NODE_COUNT * NODE_COUNT);
+		{
+			insert_edge(&edge_graph, { 0, 1, 29 });
+			insert_edge(&edge_graph, { 1, 2, 16 });
+			insert_edge(&edge_graph, { 2, 3, 12 });
+			insert_edge(&edge_graph, { 3, 4, 22 });
+			insert_edge(&edge_graph, { 4, 5, 27 });
+			insert_edge(&edge_graph, { 5, 0, 10 });
+			insert_edge(&edge_graph, { 6, 1, 15 });
+			insert_edge(&edge_graph, { 6, 3, 18 });
+			insert_edge(&edge_graph, { 6, 4, 25 });
+
+			print_kruskal(&edge_graph, NODE_COUNT);
+		}
+		destroy_graph(&edge_graph);
+
+		vertex_graph_t vertex_graph = create_vertex_graph(NODE_COUNT);
+		{
+			insert_edge(&vertex_graph, { 0, 1, 29 });
+			insert_edge(&vertex_graph, { 1, 2, 16 });
+			insert_edge(&vertex_graph, { 2, 3, 12 });
+			insert_edge(&vertex_graph, { 3, 4, 22 });
+			insert_edge(&vertex_graph, { 4, 5, 27 });
+			insert_edge(&vertex_graph, { 5, 0, 10 });
+			insert_edge(&vertex_graph, { 6, 1, 15 });
+			insert_edge(&vertex_graph, { 6, 3, 18 });
+			insert_edge(&vertex_graph, { 6, 4, 25 });
+
+			bool is_discovered[NODE_COUNT] = { false, };
+			print_prim(&vertex_graph, is_discovered);
+		}
+		destroy_graph(&vertex_graph);
+	}
+
+	// shortest path
+	{
+		constexpr int NODE_COUNT = 7;
+
+		using namespace shortest_path;
+		list_graph_t list_graph = create_list_graph(NODE_COUNT);
+		{
+			insert_edge(&list_graph, 0, 1, 7);
+			insert_edge(&list_graph, 0, 4, 3);
+			insert_edge(&list_graph, 0, 5, 10);
+			insert_edge(&list_graph, 1, 4, 2);
+			insert_edge(&list_graph, 1, 5, 6);
+			insert_edge(&list_graph, 1, 2, 4);
+			insert_edge(&list_graph, 1, 3, 10);
+			insert_edge(&list_graph, 2, 3, 2);
+			insert_edge(&list_graph, 3, 5, 9);
+			insert_edge(&list_graph, 3, 6, 4);
+			insert_edge(&list_graph, 3, 4, 11);
+			insert_edge(&list_graph, 4, 6, 5);
+
+			print_dijkstra(&list_graph, 0);
+		}
+		destroy_graph(&list_graph);
+
+		matrix_graph_t matrix_graph = create_matrix_graph(NODE_COUNT);
+		{
+			insert_edge(&matrix_graph, 0, 1, 7);
+			insert_edge(&matrix_graph, 0, 4, 3);
+			insert_edge(&matrix_graph, 0, 5, 10);
+			insert_edge(&matrix_graph, 1, 4, 2);
+			insert_edge(&matrix_graph, 1, 5, 6);
+			insert_edge(&matrix_graph, 1, 2, 4);
+			insert_edge(&matrix_graph, 1, 3, 10);
+			insert_edge(&matrix_graph, 2, 3, 2);
+			insert_edge(&matrix_graph, 3, 5, 9);
+			insert_edge(&matrix_graph, 3, 6, 4);
+			insert_edge(&matrix_graph, 3, 4, 11);
+			insert_edge(&matrix_graph, 4, 6, 5);
+
+			print_dijkstra(&matrix_graph, 0);
+		}
+		destroy_graph(&matrix_graph);
+
+		int matrix[NODE_COUNT][NODE_COUNT] = {
+			{ 0, 7, INF, INF, 3, 10, INF },
+			{ 7, 0, 4, 10, 2, 6, INF },
+			{ INF, 4, 0, 2, INF, INF, INF },
+			{ INF, 10, 2, 0, 11, 9, 4 },
+			{ 3, 2, INF, 11, 0, INF, 5 },
+			{ 10, 6, INF, 9, INF, 0, INF },
+			{ INF, INF, INF, 4, 5, INF, 0 }
+		};
+
+		matrix_graph.capacity = NODE_COUNT;
+		matrix_graph.p_weight_matrix = reinterpret_cast<int*>(matrix);
+		{
+			print_floyd(&matrix_graph);
+		}
+	}
+
+	// topology sort
+	{
+		using namespace topology_sort;
+
+		constexpr int NODE_COUNT = 6;
+
+		graph_t graph = create_graph(NODE_COUNT);
+		{
+			insert_edge(&graph, 0, 2);
+			insert_edge(&graph, 0, 3);
+			insert_edge(&graph, 1, 3);
+			insert_edge(&graph, 1, 4);
+			insert_edge(&graph, 2, 3);
+			insert_edge(&graph, 2, 5);
+			insert_edge(&graph, 3, 5);
+			insert_edge(&graph, 4, 5);
+
+			print_topology_sort(&graph);
+		}
+		destroy_graph(&graph);
 	}
 }

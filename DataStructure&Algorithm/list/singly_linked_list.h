@@ -59,7 +59,7 @@ namespace singly_linked_list
 	}
 
 	template<typename T>
-	void add_front(node_t<T>** const pp_head, const int value)
+	void add_front(node_t<T>** const pp_head, const T value)
 	{
 		assert(pp_head != nullptr);
 
@@ -70,7 +70,7 @@ namespace singly_linked_list
 	}
 
 	template<typename T>
-	void add_back(node_t<T>** const pp_head, const int value)
+	void add_back(node_t<T>** const pp_head, const T value)
 	{
 		assert(pp_head != nullptr);
 
@@ -86,7 +86,7 @@ namespace singly_linked_list
 	}
 
 	template<typename T>
-	void add_sorted(node_t<T>** const pp_head, const int value)
+	void add_sorted(node_t<T>** const pp_head, const T value)
 	{
 		assert(pp_head != nullptr);
 
@@ -106,7 +106,7 @@ namespace singly_linked_list
 	}
 
 	template<typename T>
-	node_t<T>* add_last_recursive(node_t<T>* const p_head_or_null, const int value)
+	node_t<T>* add_last_recursive(node_t<T>* const p_head_or_null, const T value)
 	{
 		if (p_head_or_null == nullptr) {
 			return create_singly_node_malloc(value);
@@ -118,7 +118,7 @@ namespace singly_linked_list
 	}
 
 	template<typename T>
-	void remove_item(node_t<T>** const pp_head, const int value)
+	void remove_item(node_t<T>** const pp_head, const T value)
 	{
 		assert(pp_head != nullptr);
 
@@ -139,7 +139,7 @@ namespace singly_linked_list
 	}
 
 	template<typename T>
-	node_t<T>* remove_item_recursive(node_t<T>* const p_head_or_null, const int value)
+	node_t<T>* remove_item_recursive(node_t<T>* const p_head_or_null, const T value)
 	{
 		if (p_head_or_null == nullptr) {
 			return nullptr;
@@ -219,14 +219,5 @@ namespace singly_linked_list
 		}
 	}
 
-	void print_list(const node_t<int>* const p_head)
-	{
-		const node_t<int>* p_node = p_head;
-		while (p_node != nullptr) {
-			printf("%d ", p_node->data);
-
-			p_node = p_node->p_next;
-		}
-		printf("\n");
-	}
+	void print_list(const node_t<int>* const p_head);
 }

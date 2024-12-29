@@ -131,7 +131,11 @@
   <ItemGroup>
     <ClCompile Include="array\matrix.cpp" />
     <ClCompile Include="array\polynomial.cpp" />
+    <ClCompile Include="graph\mst.cpp" />
+    <ClCompile Include="graph\shortest_path.cpp" />
+    <ClCompile Include="graph\topology_sort.cpp" />
     <ClCompile Include="list\linked_list_application.cpp" />
+    <ClCompile Include="list\singly_linked_list.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="priority_queue\heap_application.cpp" />
     <ClCompile Include="queue\queue_application.cpp" />
@@ -143,6 +147,11 @@
     <ClInclude Include="array\array.h" />
     <ClInclude Include="array\matrix.h" />
     <ClInclude Include="array\polynomial.h" />
+    <ClInclude Include="graph\adjacent_list.h" />
+    <ClInclude Include="graph\adjacent_matrix.h" />
+    <ClInclude Include="graph\mst.h" />
+    <ClInclude Include="graph\shortest_path.h" />
+    <ClInclude Include="graph\topology_sort.h" />
     <ClInclude Include="list\array_list.h" />
     <ClInclude Include="list\doubly_linked_list.h" />
     <ClInclude Include="list\linked_list_application.h" />
