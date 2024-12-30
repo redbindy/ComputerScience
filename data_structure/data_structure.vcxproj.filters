@@ -37,6 +37,9 @@
     <Filter Include="graph">
       <UniqueIdentifier>{6b5c5285-670d-453e-a204-e545e9e97290}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sort">
+      <UniqueIdentifier>{ac81fd3f-274f-4fab-9dd5-af8abd7cb50b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -77,6 +80,9 @@
     </ClCompile>
     <ClCompile Include="graph\topology_sort.cpp">
       <Filter>graph</Filter>
+    </ClCompile>
+    <ClCompile Include="sort\sort.cpp">
+      <Filter>sort</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -166,6 +172,9 @@
     </ClInclude>
     <ClInclude Include="graph\topology_sort.h">
       <Filter>graph</Filter>
+    </ClInclude>
+    <ClInclude Include="sort\sort.h">
+      <Filter>sort</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

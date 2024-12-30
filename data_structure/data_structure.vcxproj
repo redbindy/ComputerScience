@@ -141,6 +141,7 @@
     <ClCompile Include="priority_queue\heap_application.cpp" />
     <ClCompile Include="queue\queue_application.cpp" />
     <ClCompile Include="recursion\recursion.cpp" />
+    <ClCompile Include="sort\sort.cpp" />
     <ClCompile Include="stack\stack_application.cpp" />
     <ClCompile Include="tree\binary_tree_application.cpp" />
   </ItemGroup>
@@ -167,6 +168,7 @@
     <ClInclude Include="queue\queue_application.h" />
     <ClInclude Include="queue\ring_queue.h" />
     <ClInclude Include="recursion\recursion.h" />
+    <ClInclude Include="sort\sort.h" />
     <ClInclude Include="stack\stack_application.h" />
     <ClInclude Include="stack\stack.h" />
     <ClInclude Include="tree\binary_search_tree.h" />

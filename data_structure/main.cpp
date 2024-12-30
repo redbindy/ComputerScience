@@ -32,6 +32,7 @@
 #include "graph/mst.h"
 #include "graph/shortest_path.h"
 #include "graph/topology_sort.h"
+#include "sort/sort.h"
 
 void test_recursion();
 void test_array();
@@ -41,6 +42,7 @@ void test_list();
 void test_tree();
 void test_priority_queue();
 void test_graph();
+void test_sort();
 
 int main(void)
 {
@@ -51,7 +53,8 @@ int main(void)
 	// test_list();
 	// test_tree();
 	// test_priority_queue();
-	test_graph();
+	// test_graph();
+	test_sort();
 
 	return 0;
 }
@@ -1130,7 +1133,7 @@ void test_graph()
 	// adjacent matrix ADT
 	{
 		using namespace adjacent_matrix;
-		
+
 		int size = 4;
 
 		graph_t graph = create_graph(size);
@@ -1200,7 +1203,7 @@ void test_graph()
 
 		graph_t graph = create_graph(size);
 		{
-			print_adjacent_list (&graph);
+			print_adjacent_list(&graph);
 
 			for (int i = 0; i < size; ++i) {
 				insert_vertex(&graph, i);
@@ -1378,4 +1381,92 @@ void test_graph()
 		}
 		destroy_graph(&graph);
 	}
+}
+
+void test_sort()
+{
+	using namespace sort;
+
+	int raw_nums[] = { 5, 3, 8, 2, 7 };
+
+	constexpr int ARR_BYTE_SIZE = sizeof(raw_nums);
+	constexpr int ARR_LEN = ARR_BYTE_SIZE / sizeof(int);
+
+	int nums[ARR_LEN];
+
+	printf("selection sort\n");
+	{
+		memcpy(nums, raw_nums, ARR_BYTE_SIZE);
+
+		print_selection_sort(nums, ARR_LEN);
+	}
+	printf("\n");
+
+	printf("insertion sort\n");
+	{
+		memcpy(nums, raw_nums, ARR_BYTE_SIZE);
+
+		print_insertion_sort(nums, ARR_LEN);
+	}
+	printf("\n");
+
+	printf("bubble sort\n");
+	{
+		memcpy(nums, raw_nums, ARR_BYTE_SIZE);
+
+		print_bubble_sort(nums, ARR_LEN);
+	}
+	printf("\n");
+
+	printf("shell sort\n");
+	{
+		memcpy(nums, raw_nums, ARR_BYTE_SIZE);
+
+		print_shell_sort(nums, ARR_LEN);
+
+		// int ns[] = { 10, 8, 6, 20, 4, 3, 22, 1, 0, 15, 16 };
+
+		// print_shell_sort(ns, 11);
+	}
+	printf("\n");
+
+	printf("merge sort\n");
+	{
+		memcpy(nums, raw_nums, ARR_BYTE_SIZE);
+
+		print_merge_sort(nums, ARR_LEN);
+	}
+	printf("\n");
+
+	printf("quick sort - lomuto\n");
+	{
+		memcpy(nums, raw_nums, ARR_BYTE_SIZE);
+
+		print_quick_sort_lomuto(nums, ARR_LEN);
+	}
+	printf("\n");
+
+	printf("quick sort - hoare\n");
+	{
+		memcpy(nums, raw_nums, ARR_BYTE_SIZE);
+
+		print_quick_sort_hoare(nums, ARR_LEN);
+	}
+	printf("\n");
+
+	printf("heap sort\n");
+	{
+		memcpy(nums, raw_nums, ARR_BYTE_SIZE);
+
+		print_heap_sort(nums, ARR_LEN);
+	}
+	printf("\n");
+
+	printf("radix sort\n");
+	{
+		int nums[] = { 89, 71, 22, 81, 76, 123, 999, 38, 97, 98, 83, 94 };
+
+		print_radix_sort(nums, sizeof(nums) / sizeof(int));
+	}
+	printf("\n");
 }
