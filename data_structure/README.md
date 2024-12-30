@@ -8,3 +8,4 @@
 - [트리](./tree)
 - [우선순위 큐](./priority_queue)
 - [그래프](./graph)
+- [정렬](./sort)
