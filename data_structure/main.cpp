@@ -33,6 +33,8 @@
 #include "graph/shortest_path.h"
 #include "graph/topology_sort.h"
 #include "sort/sort.h"
+#include "search/search_array.h"
+#include "tree/avl_tree.h"
 
 void test_recursion();
 void test_array();
@@ -43,6 +45,8 @@ void test_tree();
 void test_priority_queue();
 void test_graph();
 void test_sort();
+void test_search();
+void test_tree1();
 
 int main(void)
 {
@@ -54,7 +58,9 @@ int main(void)
 	// test_tree();
 	// test_priority_queue();
 	// test_graph();
-	test_sort();
+	// test_sort();
+	// test_search();
+	test_tree1();
 
 	return 0;
 }
@@ -1469,4 +1475,77 @@ void test_sort()
 		print_radix_sort(nums, sizeof(nums) / sizeof(int));
 	}
 	printf("\n");
+}
+
+void test_search()
+{
+	// search - array
+	{
+		using namespace search_array;
+
+		int nums[] = { 9, 5, 8, 3, 7 };
+
+		constexpr int ARR_LEN = sizeof(nums) / sizeof(int);
+
+		assert(search_sequential(nums, ARR_LEN, 8) == 2);
+		assert(search_sequential(nums, ARR_LEN, 10) == -1);
+
+		constexpr int CAPACITY = ARR_LEN * 2;
+
+		int unfilled_nums[CAPACITY] = { 9, 5, 8, 3, 7, };
+
+		assert(search_sequential_unfilled_array(unfilled_nums, ARR_LEN, CAPACITY, 8) == 2);
+		assert(search_sequential_unfilled_array(unfilled_nums, ARR_LEN, CAPACITY, 10) == -1);
+
+		constexpr int SORTED_ARR_LEN = 9;
+
+		int sorted_nums[SORTED_ARR_LEN] = { 1, 3, 5, 6, 7, 9, 11, 20, 30 };
+
+		assert(search_binary_recursive(sorted_nums, SORTED_ARR_LEN, 0, SORTED_ARR_LEN - 1, 3) == 1);
+		assert(search_binary_recursive(sorted_nums, SORTED_ARR_LEN, 0, SORTED_ARR_LEN - 1, 100) == -1);
+
+		assert(search_binary(sorted_nums, SORTED_ARR_LEN, 3) == 1);
+		assert(search_binary(sorted_nums, SORTED_ARR_LEN, 100) == -1);
+
+		constexpr int INDEX_TABLE_SIZE = 3;
+
+		entry_t index_table[INDEX_TABLE_SIZE] = {
+			{ 1, 0 },
+			{ 6, 3},
+			{ 11, 6 }
+		};
+
+		assert(search_indexed(sorted_nums, SORTED_ARR_LEN, index_table, INDEX_TABLE_SIZE, 3) == 1);
+		assert(search_indexed(sorted_nums, SORTED_ARR_LEN, index_table, INDEX_TABLE_SIZE, 100) == -1);
+		assert(search_indexed(sorted_nums, SORTED_ARR_LEN, index_table, INDEX_TABLE_SIZE, 20) == 7);
+
+		assert(search_interpolation_recursive(sorted_nums, SORTED_ARR_LEN, 0, SORTED_ARR_LEN - 1, 3) == 1);
+		assert(search_interpolation_recursive(sorted_nums, SORTED_ARR_LEN, 0, SORTED_ARR_LEN - 1, 100) == -1);
+		assert(search_interpolation_recursive(sorted_nums, SORTED_ARR_LEN, 0, SORTED_ARR_LEN - 1, 30) == 8);
+		assert(search_interpolation_recursive(sorted_nums, SORTED_ARR_LEN, 0, SORTED_ARR_LEN - 1, 2) == -1);
+	}
+}
+
+void test_tree1()
+{
+	// AVL tree
+	{
+		using namespace avl_tree;
+
+		node_t* p_root = insert_recursive(nullptr, 50);
+		{
+			p_root = insert_recursive(p_root, 60);
+			p_root = insert_recursive(p_root, 70);
+			p_root = insert_recursive(p_root, 90);
+			p_root = insert_recursive(p_root, 80);
+			p_root = insert_recursive(p_root, 75);
+			p_root = insert_recursive(p_root, 73);
+			p_root = insert_recursive(p_root, 72);
+			p_root = insert_recursive(p_root, 78);
+
+			p_root = delete_recursive_or_null(p_root, 72);
+			p_root = delete_recursive_or_null(p_root, 73);
+		}
+		destroy_recursive(&p_root);
+	}
 }

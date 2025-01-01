@@ -40,6 +40,9 @@
     <Filter Include="sort">
       <UniqueIdentifier>{ac81fd3f-274f-4fab-9dd5-af8abd7cb50b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="search">
+      <UniqueIdentifier>{194337b9-ba3a-481c-a5c1-c5bc530725b1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -83,6 +86,12 @@
     </ClCompile>
     <ClCompile Include="sort\sort.cpp">
       <Filter>sort</Filter>
+    </ClCompile>
+    <ClCompile Include="search\search_array.cpp">
+      <Filter>search</Filter>
+    </ClCompile>
+    <ClCompile Include="tree\avl_tree.cpp">
+      <Filter>tree</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -175,6 +184,12 @@
     </ClInclude>
     <ClInclude Include="sort\sort.h">
       <Filter>sort</Filter>
+    </ClInclude>
+    <ClInclude Include="search\search_array.h">
+      <Filter>search</Filter>
+    </ClInclude>
+    <ClInclude Include="tree\avl_tree.h">
+      <Filter>tree</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
