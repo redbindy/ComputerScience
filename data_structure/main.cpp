@@ -35,6 +35,7 @@
 #include "sort/sort.h"
 #include "search/search_array.h"
 #include "tree/avl_tree.h"
+#include "hashing/hash_table.h"
 
 void test_recursion();
 void test_array();
@@ -47,6 +48,7 @@ void test_graph();
 void test_sort();
 void test_search();
 void test_tree1();
+void test_hashing();
 
 int main(void)
 {
@@ -60,7 +62,9 @@ int main(void)
 	// test_graph();
 	// test_sort();
 	// test_search();
-	test_tree1();
+	// test_tree1();
+	test_hashing();
+
 
 	return 0;
 }
@@ -1549,3 +1553,104 @@ void test_tree1()
 		destroy_recursive(&p_root);
 	}
 }
+
+void test_hashing()
+{
+	using namespace hash_table;
+
+	constexpr int TABLE_SIZE = 7;
+
+	// open addressing
+	{
+
+		// const char* keys[TABLE_SIZE] = { "do", "for", "if", "case", "else", "return", "function" };
+		const char* keys[TABLE_SIZE] = { "abc", "bac", "bca", "bac", "acb", "cab", "ddd" };
+
+		linear_hash_table_t<const char*, int> ht = create_linear_table<const char*, int>(TABLE_SIZE);
+		{
+			for (int i = TABLE_SIZE - 1; i >= 0; --i) {
+				assert(try_add(&ht, keys[i], i));
+			}
+
+			int v = -1;
+			assert(!try_get_value(&ht, "dkdkdkdk", &v));
+			assert(v == -1);
+
+			// assert(try_get_value(&ht, "case", &v));
+			assert(try_get_value(&ht, "bac", &v));
+			assert(v == 1);
+
+			// remove_key(&ht, "if");
+			remove_key(&ht, "bca");
+
+			// assert(!try_get_value(&ht, "if", &v));
+			assert(!try_get_value(&ht, "bca", &v));
+		}
+		destroy(&ht);
+
+		linear_hash_table_t<int, int> iht = create_linear_table<int, int>(TABLE_SIZE);
+		{
+			for (int i = TABLE_SIZE - 1; i >= 0; --i) {
+				assert(try_add(&iht, i, i));
+			}
+
+			int v = -1;
+			assert(!try_get_value(&iht, 10101, &v));
+
+			assert(try_get_value(&iht, 3, &v));
+			assert(v == 3);
+
+			remove_key(&iht, 3);
+
+			assert(!try_get_value(&iht, 3, &v));
+		}
+		destroy(&iht);
+	}
+
+	// chaining
+	{
+		const char* keys[TABLE_SIZE] = { "abc", "bac", "bca", "bac", "acb", "cab", "ddd" };
+
+		chained_hash_table_t<const char*, int> ht = create_chained_table<const char*, int>(TABLE_SIZE);
+		{
+			for (int i = TABLE_SIZE - 1; i >= 0; --i) {
+				add(&ht, keys[i], i);
+			}
+
+			int v = -1;
+			assert(!try_get_value(&ht, "dkdkdkdk", &v));
+			assert(v == -1);
+
+			// assert(try_get_value(&ht, "case", &v));
+			assert(try_get_value(&ht, "bac", &v));
+			assert(v == 1);
+
+			// remove_key(&ht, "if");
+			remove_key(&ht, "bca");
+
+			// assert(!try_get_value(&ht, "if", &v));
+			assert(!try_get_value(&ht, "bca", &v));
+		}
+		destroy(&ht);
+
+		chained_hash_table_t<int, int> iht = create_chained_table<int, int>(TABLE_SIZE);
+		{
+			for (int i = TABLE_SIZE - 1; i >= 0; --i) {
+				add(&iht, i, i);
+			}
+
+			int v = -1;
+			assert(!try_get_value(&iht, 10101, &v));
+
+			assert(try_get_value(&iht, 3, &v));
+			assert(v == 3);
+
+			remove_key(&iht, 3);
+
+			assert(!try_get_value(&iht, 3, &v));
+		}
+		destroy(&iht);
+	}
+}
+
+

@@ -156,6 +156,7 @@
     <ClInclude Include="graph\mst.h" />
     <ClInclude Include="graph\shortest_path.h" />
     <ClInclude Include="graph\topology_sort.h" />
+    <ClInclude Include="hashing\hash_table.h" />
     <ClInclude Include="list\array_list.h" />
     <ClInclude Include="list\doubly_linked_list.h" />
     <ClInclude Include="list\linked_list_application.h" />

@@ -43,6 +43,9 @@
     <Filter Include="search">
       <UniqueIdentifier>{194337b9-ba3a-481c-a5c1-c5bc530725b1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="hashing">
+      <UniqueIdentifier>{754a4f69-ac26-4a6a-8333-712efaf9761a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -190,6 +193,9 @@
     </ClInclude>
     <ClInclude Include="tree\avl_tree.h">
       <Filter>tree</Filter>
+    </ClInclude>
+    <ClInclude Include="hashing\hash_table.h">
+      <Filter>hashing</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
