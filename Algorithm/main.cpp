@@ -1,6 +1,7 @@
 ﻿#include <iostream>
 #include <cassert>
 #include <utility>
+#include <algorithm>
 
 #include "DataStructure/TArray.h"
 #include "DataStructure/TArrayStack.h"
@@ -9,12 +10,14 @@
 #include "DataStructure/TLinkedStack.h"
 #include "DataStructure/TLinkedQueue.h"
 #include "Sort/Sort.h"
+#include "Selection/Select.h"
 
 void TestTArray();
 void TestStack();
 void TestQueue();
 void TestLinkedList();
 void TestSort();
+void TestSelection();
 
 int main()
 {
@@ -22,7 +25,8 @@ int main()
     // TestStack();
     // TestQueue();
     // TestLinkedList();
-    TestSort();
+    // TestSort();
+    TestSelection();
 }
 
 void TestTArray()
@@ -212,4 +216,18 @@ void TestSort()
         pSort->SortCounting(data);
     }
     Sort<int>::DeleteInstance();
+}
+
+void TestSelection()
+{
+    using namespace Selection;
+
+    std::vector<int> v = { 31, 8, 48, 73, 11, 3, 20, 29, 65, 15 };
+    std::vector<int> sortedV = v;
+
+    std::sort(sortedV.begin(), sortedV.end());
+
+    assert(SelectKthNum(v, 2) == sortedV[1]);
+
+    assert(SelectLinear(v, 2) == sortedV[1]);
 }

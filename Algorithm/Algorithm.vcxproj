@@ -130,6 +130,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Selection\Select.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataStructure\THeap.h" />
@@ -141,6 +142,7 @@
     <ClInclude Include="DataStructure\TArray.h" />
     <ClInclude Include="DataStructure\TArrayQueue.h" />
     <ClInclude Include="DataStructure\TArrayStack.h" />
+    <ClInclude Include="Selection\Select.h" />
     <ClInclude Include="Sort\Sort.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
