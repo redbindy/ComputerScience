@@ -10,7 +10,7 @@
 #include "DataStructure/TLinkedStack.h"
 #include "DataStructure/TLinkedQueue.h"
 #include "Sort/Sort.h"
-#include "Selection/Select.h"
+#include "Selection/Selection.h"
 
 void TestTArray();
 void TestStack();
