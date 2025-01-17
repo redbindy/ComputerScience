@@ -11,6 +11,9 @@
 #include "DataStructure/TLinkedQueue.h"
 #include "Sort/Sort.h"
 #include "Selection/Selection.h"
+#include "SearchTree/BinarySearchTree.h"
+#include "SearchTree/RedBlackTree.h"
+#include "SearchTree/BTree.h"
 
 void TestTArray();
 void TestStack();
@@ -18,6 +21,7 @@ void TestQueue();
 void TestLinkedList();
 void TestSort();
 void TestSelection();
+void TestSearchTree();
 
 int main()
 {
@@ -26,7 +30,8 @@ int main()
     // TestQueue();
     // TestLinkedList();
     // TestSort();
-    TestSelection();
+    // TestSelection();
+    TestSearchTree();
 }
 
 void TestTArray()
@@ -230,4 +235,140 @@ void TestSelection()
     assert(SelectKthNum(v, 2) == sortedV[1]);
 
     assert(SelectLinear(v, 2) == sortedV[1]);
+}
+
+void TestSearchTree()
+{
+    {
+        BinarySearchTree bst;
+
+        bst.InsertKey(3);
+        bst.InsertKey(5);
+        bst.InsertKey(4);
+        bst.InsertKey(2);
+        bst.InsertKey(1);
+        bst.InsertKey(6);
+
+        assert(bst.HasKey(3));
+        assert(bst.HasKey(5));
+        assert(bst.HasKey(4));
+        assert(bst.HasKey(2));
+        assert(bst.HasKey(1));
+        assert(bst.HasKey(6));
+
+
+        assert(bst.GetSize() == 6);
+
+        bst.RemoveKey(5);
+        assert(!bst.HasKey(5));
+        assert(bst.GetSize() == 5);
+
+        bst.RemoveKey(2);
+        assert(!bst.HasKey(2));
+        assert(bst.GetSize() == 4);
+
+        bst.RemoveKey(4);
+        assert(!bst.HasKey(4));
+        assert(bst.GetSize() == 3);
+    }
+
+#if false
+    {
+        {
+            RedBlackTree RedBlackTree;
+
+            for (int i = 1; i <= 21; ++i)
+            {
+                RedBlackTree.InsertKey(i);
+                RedBlackTree.PrintTree();
+            }
+
+            for (int i = 1; i <= 7; ++i)
+            {
+                RedBlackTree.RemoveKey(i);
+                RedBlackTree.PrintTree();
+            }
+        }
+
+        {
+            RedBlackTree RedBlackTree;
+
+            for (int i = 21; i > 0; --i)
+            {
+                RedBlackTree.InsertKey(i);
+                RedBlackTree.PrintTree();
+            }
+
+            for (int i = 21; i > 14; --i)
+            {
+                RedBlackTree.RemoveKey(i);
+                RedBlackTree.PrintTree();
+            }
+        }
+
+        {
+            RedBlackTree RedBlackTree;
+
+            RedBlackTree.InsertKey(10);
+            RedBlackTree.PrintTree();
+
+            RedBlackTree.InsertKey(85);
+            RedBlackTree.PrintTree();
+
+            RedBlackTree.InsertKey(15);
+            RedBlackTree.PrintTree();
+
+            RedBlackTree.InsertKey(70);
+            RedBlackTree.PrintTree();
+
+            RedBlackTree.InsertKey(20);
+            RedBlackTree.PrintTree();
+
+            RedBlackTree.InsertKey(60);
+            RedBlackTree.PrintTree();
+
+            RedBlackTree.InsertKey(30);
+            RedBlackTree.PrintTree();
+
+            RedBlackTree.InsertKey(50);
+            RedBlackTree.PrintTree();
+
+            RedBlackTree.InsertKey(65);
+            RedBlackTree.PrintTree();
+
+            RedBlackTree.InsertKey(80);
+            RedBlackTree.PrintTree();
+
+            RedBlackTree.InsertKey(90);
+            RedBlackTree.PrintTree();
+
+            RedBlackTree.InsertKey(40);
+            RedBlackTree.PrintTree();
+
+            RedBlackTree.InsertKey(5);
+            RedBlackTree.PrintTree();
+
+            RedBlackTree.InsertKey(55);
+            RedBlackTree.PrintTree();
+        }
+    }
+#endif
+
+    {
+        constexpr int MAX_KEY_COUNT = 5;
+
+        BTree bTree(MAX_KEY_COUNT);
+
+        for (int i = 1; i < 46; ++i)
+        {
+            bTree.InsertKey(i);
+            bTree.PrintTree();
+        }
+
+        for (int i = 1; i < 46; ++i)
+        {
+            bTree.RemoveKey(i);
+            bTree.PrintTree();
+        }
+    }
 }

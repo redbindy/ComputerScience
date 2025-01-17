@@ -21,6 +21,15 @@
     <ClCompile Include="Selection\Selection.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="SearchTree\BinarySearchTree.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SearchTree\RedBlackTree.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SearchTree\BTree.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataStructure\TArray.h">
@@ -54,6 +63,15 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Selection\Selection.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SearchTree\BinarySearchTree.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SearchTree\RedBlackTree.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SearchTree\BTree.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

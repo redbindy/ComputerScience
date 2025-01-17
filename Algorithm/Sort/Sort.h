@@ -10,7 +10,7 @@
 #include "../DataStructure/THeap.h"
 
 template<typename T>
-class Sort
+class Sort final
 {
 public:
 
