@@ -14,6 +14,8 @@
 #include "SearchTree/BinarySearchTree.h"
 #include "SearchTree/RedBlackTree.h"
 #include "SearchTree/BTree.h"
+#include "HashTable/TChainedHashTable.h"
+#include "HashTable/TLinearHashTable.h"
 
 void TestTArray();
 void TestStack();
@@ -22,6 +24,7 @@ void TestLinkedList();
 void TestSort();
 void TestSelection();
 void TestSearchTree();
+void TestHashTable();
 
 int main()
 {
@@ -31,7 +34,8 @@ int main()
     // TestLinkedList();
     // TestSort();
     // TestSelection();
-    TestSearchTree();
+    // TestSearchTree();
+    TestHashTable();
 }
 
 void TestTArray()
@@ -370,5 +374,58 @@ void TestSearchTree()
             bTree.RemoveKey(i);
             bTree.PrintTree();
         }
+    }
+}
+
+void TestHashTable()
+{
+    constexpr int TABLE_SIZE = 7;
+
+    const char* keys[TABLE_SIZE] = { "abc", "bac", "bca", "bacg", "acb", "cab", "ddd" };
+
+    // chained hash table
+    {
+        TChainedHashTable<const char*, int> ht(TABLE_SIZE);
+
+        for (int i = 0; i < TABLE_SIZE; ++i)
+        {
+            ht.Insert(keys[i], i);
+        }
+
+        int v;
+        assert(ht.TryGetValue("abc", v));
+        assert(v == 0);
+
+        assert(ht["abc"] == 0);
+
+        assert(ht.ContainsKey("ddd"));
+
+        ht.RemoveKey("bac");
+        assert(!ht.TryGetValue("bac", v));
+
+        ht["bacg"] = 100;
+    }
+
+    // linear hash table
+    {
+        TLinearHashTable<const char*, int> ht(TABLE_SIZE);
+
+        for (int i = 0; i < TABLE_SIZE; ++i)
+        {
+            ht.Insert(keys[i], i);
+        }
+
+        int v;
+        assert(ht.TryGetValue("abc", v));
+        assert(v == 0);
+
+        assert(ht["abc"] == 0);
+
+        assert(ht.ContainsKey("ddd"));
+
+        ht.RemoveKey("bac");
+        assert(!ht.TryGetValue("bac", v));
+
+        ht["bacg"] = 100;
     }
 }

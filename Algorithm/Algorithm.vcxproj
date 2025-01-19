@@ -130,6 +130,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PrimeNumber\PrimeNumber.cpp" />
     <ClCompile Include="SearchTree\BinarySearchTree.cpp" />
     <ClCompile Include="SearchTree\BTree.cpp" />
     <ClCompile Include="SearchTree\RedBlackTree.cpp" />
@@ -145,6 +146,10 @@
     <ClInclude Include="DataStructure\TArray.h" />
     <ClInclude Include="DataStructure\TArrayQueue.h" />
     <ClInclude Include="DataStructure\TArrayStack.h" />
+    <ClInclude Include="HashTable\TChainedHashTable.h" />
+    <ClInclude Include="HashTable\THashTable.h" />
+    <ClInclude Include="HashTable\TLinearHashTable.h" />
+    <ClInclude Include="PrimeNumber\PrimeNumber.h" />
     <ClInclude Include="SearchTree\BinarySearchTree.h" />
     <ClInclude Include="SearchTree\BTree.h" />
     <ClInclude Include="SearchTree\RedBlackTree.h" />
