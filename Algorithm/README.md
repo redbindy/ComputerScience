@@ -4,3 +4,5 @@
 - [정렬](./Sort)
 - [선택](./Selection)
 - [검색 트리](./SearchTree)
+- [해시 테이블](./HashTable)
+- [소수](./PrimeNumber)
