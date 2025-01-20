@@ -16,6 +16,8 @@
 #include "SearchTree/BTree.h"
 #include "HashTable/TChainedHashTable.h"
 #include "HashTable/TLinearHashTable.h"
+#include "DisjointSet/TLinkedDisjointSet.h"
+#include "DisjointSet/TTreeDisjointSet.h"
 
 void TestTArray();
 void TestStack();
@@ -25,6 +27,7 @@ void TestSort();
 void TestSelection();
 void TestSearchTree();
 void TestHashTable();
+void TestDisjointSet();
 
 int main()
 {
@@ -35,7 +38,8 @@ int main()
     // TestSort();
     // TestSelection();
     // TestSearchTree();
-    TestHashTable();
+    // TestHashTable();
+    TestDisjointSet();
 }
 
 void TestTArray()
@@ -427,5 +431,52 @@ void TestHashTable()
         assert(!ht.TryGetValue("bac", v));
 
         ht["bacg"] = 100;
+    }
+}
+
+void TestDisjointSet()
+{
+    // linked set
+    {
+        TLinkedDisjointSet<char> sets(8);
+
+        for (char c = 'a'; c <= 'h'; ++c)
+        {
+            sets.MakeSet(c);
+        }
+
+        sets.Union('a', 'b');
+        sets.Union('b', 'c');
+
+        sets.Union('d', 'e');
+        sets.Union('e', 'f');
+        sets.Union('f', 'g');
+        sets.Union('g', 'h');
+
+        sets.Union('b', 'f');
+    }
+
+    // tree set
+    {
+        TTreeDisjointSet<char> sets(8);
+
+        for (char c = 'a'; c <= 'h'; ++c)
+        {
+            sets.MakeSet(c);
+        }
+
+        sets.Union('a', 'b');
+        sets.Union('a', 'c');
+
+        sets.Union('d', 'e');
+        sets.Union('d', 'f');
+        sets.Union('f', 'g');
+        sets.Union('d', 'h');
+
+        sets.Union('c', 'h');
+
+        sets.MakeSet('i');
+
+        sets.Union('a', 'i');
     }
 }
