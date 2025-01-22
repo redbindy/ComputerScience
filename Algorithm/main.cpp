@@ -18,6 +18,7 @@
 #include "HashTable/TLinearHashTable.h"
 #include "DisjointSet/TLinkedDisjointSet.h"
 #include "DisjointSet/TTreeDisjointSet.h"
+#include "DynamicProgramming/DynamicProgramming.h"
 
 void TestTArray();
 void TestStack();
@@ -28,6 +29,7 @@ void TestSelection();
 void TestSearchTree();
 void TestHashTable();
 void TestDisjointSet();
+void TestDynamicProgramming();
 
 int main()
 {
@@ -39,7 +41,8 @@ int main()
     // TestSelection();
     // TestSearchTree();
     // TestHashTable();
-    TestDisjointSet();
+    // TestDisjointSet();
+    TestDynamicProgramming();
 }
 
 void TestTArray()
@@ -478,5 +481,114 @@ void TestDisjointSet()
         sets.MakeSet('i');
 
         sets.Union('a', 'i');
+    }
+}
+
+void TestDynamicProgramming()
+{
+    // fibonacci
+    {
+        constexpr int N = 7;
+
+        std::cout << GetFibonacciRecursive(N, 2) << std::endl;
+
+        std::cout << GetFibonacciBottomUp(N) << std::endl;
+
+        int sequence[N + 1];
+        memset(sequence, -1, sizeof(int) * (N + 1));
+
+        std::cout << GetFibonacciTopDownRecursive(N, sequence, 2) << std::endl;
+    }
+
+    // matrix path problem
+    {
+        constexpr int N = 4;
+
+        int nums[N][N] = {
+            { 6, 7, 12, 5 },
+            { 5, 3, 11, 8 },
+            { 7, 17, 3, 3 },
+            { 8, 10, 14, 9 },
+        };
+
+        std::cout << SolveMatrixPathProblemRecursive(reinterpret_cast<int*>(nums), N, N - 1, N - 1) << std::endl;
+
+        std::cout << SolveMatrixPathProblemBottomUp(reinterpret_cast<int*>(nums), N) << std::endl;
+
+        int cache[N][N];
+        memset(cache, -1, sizeof(int) * N * N);
+
+        std::cout << SolveMatrixPathProblemTopDownRecursive(reinterpret_cast<int*>(nums), N, N - 1, N - 1, reinterpret_cast<int*>(cache)) << std::endl;
+    }
+
+    // pebble place problem
+    {
+        constexpr int N = 8;
+
+        int nums[3][N] = {
+            { 6, 7, 12, -5, 5, 3, 11, 3 },
+            { -8, 10, 14, 9, 7, 13, 8, 5 },
+            { 11, 12, 7, 4, 8, -2, 9, 4 }
+        };
+
+        int max = INT32_MIN;
+        for (int i = 0; i < 4; ++i)
+        {
+            const int tmp = SolvePebblePlacementProblemRecursive(reinterpret_cast<int*>(nums), N, N - 1, static_cast<EPattern>(i));
+            if (tmp > max)
+            {
+                max = tmp;
+            }
+        }
+        std::cout << max << std::endl;
+
+        std::cout << SolvePebblePlacementProblemBottomUp(reinterpret_cast<int*>(nums), N) << std::endl;
+
+        int cache[static_cast<int>(EPattern::PATTERN_COUNT)][N];
+
+        for (int row = 0; row < static_cast<int>(EPattern::PATTERN_COUNT); ++row)
+        {
+            for (int col = 0; col < N; ++col)
+            {
+                cache[row][col] = INT32_MIN;
+            }
+        }
+
+        max = INT32_MIN;
+        for (int i = 0; i < 4; ++i)
+        {
+            const int tmp = SolvePebblePlacementProblemTopDownRecursive(reinterpret_cast<int*>(nums), N, N - 1, static_cast<EPattern>(i), reinterpret_cast<int*>(cache));
+            if (tmp > max)
+            {
+                max = tmp;
+            }
+        }
+        std::cout << max << std::endl;
+    }
+
+    // matrix chain problem
+    {
+        constexpr int N = 5;
+
+        const RowColSize sizes[N] = {
+            { 10, 4 }, { 4, 5 }, { 5, 20 }, { 20, 2 }, { 2, 50 }
+        };
+
+        std::cout << SolveMatrixChainProblemRecursive(sizes, 0, N - 1) << std::endl;
+
+        std::cout << SolveMatrixChainProblemBottomUp(sizes, N) << std::endl;
+    }
+
+    // LCS
+    {
+        const char* pStr0 = "abcbdab";
+        const int len0 = static_cast<int>(strlen(pStr0));
+
+        const char* pStr1 = "bdcaba";
+        const int len1 = static_cast<int>(strlen(pStr1));
+
+        std::cout << SolveLCSRecursive(pStr0, pStr1, len0 - 1, len1 - 1) << std::endl;
+
+        std::cout << SolveLCSBottomUp(pStr0, pStr1) << std::endl;
     }
 }
