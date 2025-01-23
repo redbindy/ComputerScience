@@ -130,6 +130,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DynamicProgramming\DynamicProgramming.cpp" />
+    <ClCompile Include="Graph\Graph.cpp" />
+    <ClCompile Include="Graph\TopologicalSorting.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PrimeNumber\PrimeNumber.cpp" />
     <ClCompile Include="SearchTree\BinarySearchTree.cpp" />
@@ -150,6 +152,8 @@
     <ClInclude Include="DisjointSet\TLinkedDisjointSet.h" />
     <ClInclude Include="DisjointSet\TTreeDisjointSet.h" />
     <ClInclude Include="DynamicProgramming\DynamicProgramming.h" />
+    <ClInclude Include="Graph\Graph.h" />
+    <ClInclude Include="Graph\TopologicalSorting.h" />
     <ClInclude Include="HashTable\TChainedHashTable.h" />
     <ClInclude Include="HashTable\THashTable.h" />
     <ClInclude Include="HashTable\TLinearHashTable.h" />

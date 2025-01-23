@@ -19,6 +19,8 @@
 #include "DisjointSet/TLinkedDisjointSet.h"
 #include "DisjointSet/TTreeDisjointSet.h"
 #include "DynamicProgramming/DynamicProgramming.h"
+#include "Graph/Graph.h"
+#include "Graph/TopologicalSorting.h"
 
 void TestTArray();
 void TestStack();
@@ -30,6 +32,7 @@ void TestSearchTree();
 void TestHashTable();
 void TestDisjointSet();
 void TestDynamicProgramming();
+void TestGraph();
 
 int main()
 {
@@ -42,7 +45,8 @@ int main()
     // TestSearchTree();
     // TestHashTable();
     // TestDisjointSet();
-    TestDynamicProgramming();
+    // TestDynamicProgramming();
+    TestGraph();
 }
 
 void TestTArray()
@@ -590,5 +594,265 @@ void TestDynamicProgramming()
         std::cout << SolveLCSRecursive(pStr0, pStr1, len0 - 1, len1 - 1) << std::endl;
 
         std::cout << SolveLCSBottomUp(pStr0, pStr1) << std::endl;
+    }
+}
+
+void TestGraph()
+{
+    {
+        constexpr int NODE_COUNT = 8;
+
+        Graph graph(NODE_COUNT);
+
+        for (int i = 0; i < NODE_COUNT; ++i)
+        {
+            graph.AddNode();
+        }
+
+        graph.AddDirectedEdge(0, 1);
+        graph.AddDirectedEdge(0, 2);
+        graph.AddDirectedEdge(0, 3);
+
+        graph.AddDirectedEdge(1, 0);
+        graph.AddDirectedEdge(1, 2);
+
+        graph.AddDirectedEdge(2, 1);
+        graph.AddDirectedEdge(2, 0);
+        graph.AddDirectedEdge(2, 3);
+        graph.AddDirectedEdge(2, 4);
+
+        graph.AddDirectedEdge(3, 0);
+        graph.AddDirectedEdge(3, 2);
+        graph.AddDirectedEdge(3, 5);
+        graph.AddDirectedEdge(3, 6);
+
+        graph.AddDirectedEdge(4, 2);
+
+        graph.AddDirectedEdge(5, 3);
+        graph.AddDirectedEdge(5, 6);
+
+        graph.AddDirectedEdge(6, 3);
+        graph.AddDirectedEdge(6, 5);
+        graph.AddDirectedEdge(6, 7);
+
+        graph.AddDirectedEdge(7, 6);
+
+        graph.PrintBFS();
+        graph.PrintDFS();
+
+        graph.RemoveDirectedEdge(0, 1);
+        graph.RemoveDirectedEdge(1, 0);
+
+        graph.RemoveNode(0);
+    }
+
+    // MST
+    {
+        constexpr int NODE_COUNT = 7;
+
+        Graph graph(NODE_COUNT);
+
+        for (int i = 0; i < NODE_COUNT; ++i)
+        {
+            graph.AddNode();
+        }
+
+        graph.AddUndirectedEdge(0, 1, 10);
+        graph.AddUndirectedEdge(0, 2, 8);
+        graph.AddUndirectedEdge(1, 3, 5);
+        graph.AddUndirectedEdge(2, 3, 9);
+        graph.AddUndirectedEdge(2, 4, 11);
+        graph.AddUndirectedEdge(3, 4, 13);
+        graph.AddUndirectedEdge(3, 5, 12);
+        graph.AddUndirectedEdge(4, 6, 8);
+        graph.AddUndirectedEdge(5, 6, 7);
+
+        std::cout << graph.SolveMSTPrim() << std::endl;
+        std::cout << graph.SolveMSTKruskal() << std::endl;
+    }
+
+    // Topological Sorting
+    {
+        using namespace TopologicalSorting;
+
+        Node<const char*> nodes[] = {
+            {0, "냄비에 물 붓기" },
+            {1, "라면봉지 뜯기" },
+            {2, "점화"},
+            {3, "수프 넣기"},
+            {4, "라면 넣기"},
+            {5, "계란 풀어 넣기"}
+        };
+
+        nodes[0].neighbors.push_back(nodes + 2);
+        nodes[1].neighbors.push_back(nodes + 3);
+        nodes[1].neighbors.push_back(nodes + 4);
+        nodes[2].neighbors.push_back(nodes + 3);
+        nodes[2].neighbors.push_back(nodes + 4);
+        nodes[2].neighbors.push_back(nodes + 5);
+        nodes[3].neighbors.push_back(nodes + 5);
+        nodes[4].neighbors.push_back(nodes + 5);
+
+        std::vector<Node<const char*>*> graph;
+        graph.reserve(sizeof(nodes) / sizeof(nodes[0]));
+
+        for (int i = 0; i < 6; ++i)
+        {
+            graph.push_back(nodes + i);
+        }
+
+        PrintTopologicalSorting(graph);
+        PrintTopologicalSortingDFS(graph);
+    }
+
+    // shortest path - dijkstra
+    {
+        constexpr int NODE_COUNT = 8;
+
+        Graph graph(NODE_COUNT);
+
+        for (int i = 0; i < NODE_COUNT; ++i)
+        {
+            graph.AddNode();
+        }
+
+        graph.AddDirectedEdge(0, 1, 11);
+        graph.AddDirectedEdge(0, 2, 9);
+        graph.AddDirectedEdge(0, 3, 8);
+        graph.AddDirectedEdge(1, 4, 8);
+        graph.AddDirectedEdge(1, 5, 8);
+        graph.AddDirectedEdge(2, 1, 3);
+        graph.AddDirectedEdge(2, 3, 6);
+        graph.AddDirectedEdge(2, 6, 1);
+        graph.AddDirectedEdge(3, 6, 10);
+        graph.AddDirectedEdge(4, 5, 7);
+        graph.AddDirectedEdge(4, 5, 7);
+        graph.AddDirectedEdge(5, 2, 12);
+        graph.AddDirectedEdge(5, 7, 5);
+        graph.AddDirectedEdge(5, 7, 5);
+        graph.AddDirectedEdge(6, 7, 2);
+        graph.AddDirectedEdge(7, 4, 4);
+
+        graph.PrintDijkstra(0);
+    }
+
+    // shortest path - bellman ford
+    {
+        constexpr int NODE_COUNT = 8;
+
+        Graph graph(NODE_COUNT);
+
+        for (int i = 0; i < NODE_COUNT; ++i)
+        {
+            graph.AddNode();
+        }
+
+        graph.AddDirectedEdge(0, 1, 11);
+        graph.AddDirectedEdge(0, 2, 9);
+        graph.AddDirectedEdge(0, 3, 8);
+        graph.AddDirectedEdge(1, 4, 8);
+        graph.AddDirectedEdge(1, 5, 8);
+        graph.AddDirectedEdge(2, 1, 3);
+        graph.AddDirectedEdge(2, 3, -15);
+        graph.AddDirectedEdge(2, 6, 1);
+        graph.AddDirectedEdge(3, 6, 10);
+        graph.AddDirectedEdge(4, 5, 7);
+        graph.AddDirectedEdge(4, 5, -7);
+        graph.AddDirectedEdge(5, 2, 12);
+        graph.AddDirectedEdge(5, 7, 5);
+        graph.AddDirectedEdge(5, 7, 5);
+        graph.AddDirectedEdge(6, 7, 2);
+        graph.AddDirectedEdge(7, 4, 4);
+
+        graph.PrintBellmanFord(0);
+    }
+
+    // shortest path - Floyd Warshall
+    {
+        constexpr int NODE_COUNT = 4;
+
+        Graph graph(NODE_COUNT);
+
+        for (int i = 0; i < NODE_COUNT; ++i)
+        {
+            graph.AddNode();
+        }
+
+        graph.AddUndirectedEdge(0, 1, 1);
+        graph.AddUndirectedEdge(0, 2, 6);
+        graph.AddUndirectedEdge(1, 2, 3);
+        graph.AddUndirectedEdge(2, 3, 5);
+
+        graph.PrintFloydWarshall();
+    }
+
+    // shortest path - DAG topological
+    {
+        using namespace TopologicalSorting;
+
+        Node<int> nodes[] = {
+            { 0, 0 },
+            { 1, 0 },
+            { 2, 0 },
+            { 3, 0 },
+            { 4, 0 },
+            { 5, 0 }
+        };
+
+        Node<int> n02 = { 2, 3 };
+        Node<int> n03 = { 3, 7 };
+        Node<int> n05 = { 5, 5 };
+
+        nodes[0].neighbors.push_back(&n02);
+        nodes[0].neighbors.push_back(&n03);
+        nodes[0].neighbors.push_back(&n05);
+
+        Node<int> n10 = { 0, 6 };
+        Node<int> n13 = { 3, 5 };
+        nodes[1].neighbors.push_back(&n10);
+        nodes[1].neighbors.push_back(&n13);
+
+        Node<int> n24 = { 4, 4 };
+        nodes[2].neighbors.push_back(&n24);
+
+        Node<int> n34 = { 4, -2 };
+        Node<int> n35 = { 5, 1 };
+        nodes[3].neighbors.push_back(&n34);
+        nodes[3].neighbors.push_back(&n35);
+
+        Node<int> n45 = { 5, -3 };
+        nodes[4].neighbors.push_back(&n45);
+
+        std::vector<Node<int>*> graph;
+        graph.reserve(sizeof(nodes) / sizeof(nodes[0]));
+
+        for (int i = 0; i < sizeof(nodes) / sizeof(nodes[0]); ++i)
+        {
+            graph.push_back(nodes + i);
+        }
+
+        PrintDAGShortestPath(graph, 0);
+    }
+
+    // Kosaraju's algorithm
+    {
+        constexpr int NODE_COUNT = 7;
+        Graph graph(NODE_COUNT);
+
+        for (int i = 0; i < NODE_COUNT; ++i)
+        {
+            graph.AddNode();
+        }
+
+        graph.AddDirectedEdge(0, 4);
+        graph.AddDirectedEdge(4, 5);
+        graph.AddDirectedEdge(5, 0);
+        graph.AddDirectedEdge(0, 2);
+        graph.AddDirectedEdge(2, 3);
+        graph.AddDirectedEdge(3, 2);
+        graph.AddDirectedEdge(6, 1);
+        graph.AddDirectedEdge(1, 0);
+
+        graph.PrintSCCKosaraju();
     }
 }
