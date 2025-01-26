@@ -132,12 +132,14 @@
     <ClCompile Include="DynamicProgramming\DynamicProgramming.cpp" />
     <ClCompile Include="Graph\Graph.cpp" />
     <ClCompile Include="Graph\TopologicalSorting.cpp" />
+    <ClCompile Include="Greedy\GreedyExamples.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PrimeNumber\PrimeNumber.cpp" />
     <ClCompile Include="SearchTree\BinarySearchTree.cpp" />
     <ClCompile Include="SearchTree\BTree.cpp" />
     <ClCompile Include="SearchTree\RedBlackTree.cpp" />
     <ClCompile Include="Selection\Selection.cpp" />
+    <ClCompile Include="StringMatching\StringMatching.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataStructure\THeap.h" />
@@ -154,6 +156,7 @@
     <ClInclude Include="DynamicProgramming\DynamicProgramming.h" />
     <ClInclude Include="Graph\Graph.h" />
     <ClInclude Include="Graph\TopologicalSorting.h" />
+    <ClInclude Include="Greedy\GreedyExamples.h" />
     <ClInclude Include="HashTable\TChainedHashTable.h" />
     <ClInclude Include="HashTable\THashTable.h" />
     <ClInclude Include="HashTable\TLinearHashTable.h" />
@@ -163,6 +166,7 @@
     <ClInclude Include="SearchTree\RedBlackTree.h" />
     <ClInclude Include="Selection\Selection.h" />
     <ClInclude Include="Sort\Sort.h" />
+    <ClInclude Include="StringMatching\StringMatching.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

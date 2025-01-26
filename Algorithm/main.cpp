@@ -21,6 +21,8 @@
 #include "DynamicProgramming/DynamicProgramming.h"
 #include "Graph/Graph.h"
 #include "Graph/TopologicalSorting.h"
+#include "Greedy/GreedyExamples.h"
+#include "StringMatching/StringMatching.h"
 
 void TestTArray();
 void TestStack();
@@ -33,6 +35,8 @@ void TestHashTable();
 void TestDisjointSet();
 void TestDynamicProgramming();
 void TestGraph();
+void TestGreedyExamples();
+void TestStringMatching();
 
 int main()
 {
@@ -46,7 +50,9 @@ int main()
     // TestHashTable();
     // TestDisjointSet();
     // TestDynamicProgramming();
-    TestGraph();
+    // TestGraph();
+    // TestGreedyExamples();
+    TestStringMatching();
 }
 
 void TestTArray()
@@ -855,4 +861,60 @@ void TestGraph()
 
         graph.PrintSCCKosaraju();
     }
+}
+
+void TestGreedyExamples()
+{
+    // maximizing path
+    {
+        int tree[] = { INT_MIN, 10, 15, 60, 18, 30, INT_MIN, 2, 3, INT_MIN, 35, 45 };
+
+        std::cout << MaximizeSumGreedy(tree, sizeof(tree) / sizeof(int)) << std::endl;
+    }
+
+    // minimizing coin count
+    {
+        std::vector<int> coinAmounts = { 1, 5, 10, 50, 100, 500 };
+        std::cout << MinimizeCoinCountGreedy(3256, coinAmounts) << std::endl; // optimal
+
+        coinAmounts = { 500, 400, 100, 75, 50 };
+        std::cout << MinimizeCoinCountGreedy(1300, coinAmounts) << std::endl; // not optimal
+    }
+
+    // scheduling meeting room
+    {
+        std::vector<MeetingPlan> plans = {
+            {3, 5}, {1, 6}, {6, 7}, {5, 9},
+            {8, 13}, {7, 14}, {12, 18}, {16, 20}
+        };
+
+        std::vector<MeetingPlan> result = ScheduleMeetingRoomGreedy(plans);
+        for (const MeetingPlan& plan : result)
+        {
+            std::cout << plan.start << " ~ " << plan.end << std::endl;
+        }
+    }
+}
+
+void TestStringMatching()
+{
+    const char* pMainString = "The quick brown fox jumps over the lazy dog";
+
+    const char* pSub = "jumps";
+    const char* pNotFound = "quik";
+
+    assert(FindSubStringNaively(pMainString, pSub));
+    assert(!FindSubStringNaively(pMainString, pNotFound));
+
+    assert(FindSubStringAutomata(pMainString, pSub));
+    assert(!FindSubStringAutomata(pMainString, pNotFound));
+
+    assert(FindSubStringRabinKarp(pMainString, pSub));
+    assert(!FindSubStringRabinKarp(pMainString, pNotFound));
+
+    assert(FindSubStringKMP(pMainString, pSub));
+    assert(!FindSubStringKMP(pMainString, pNotFound));
+
+    assert(FindSubStringBoyerMoore(pMainString, pSub));
+    assert(!FindSubStringBoyerMoore(pMainString, pNotFound));
 }

@@ -42,6 +42,12 @@
     <ClCompile Include="Graph\TopologicalSorting.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Greedy\GreedyExamples.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="StringMatching\StringMatching.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataStructure\TArray.h">
@@ -111,6 +117,12 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Graph\TopologicalSorting.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Greedy\GreedyExamples.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="StringMatching\StringMatching.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
