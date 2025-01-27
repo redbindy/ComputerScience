@@ -139,6 +139,7 @@
     <ClCompile Include="SearchTree\BTree.cpp" />
     <ClCompile Include="SearchTree\RedBlackTree.cpp" />
     <ClCompile Include="Selection\Selection.cpp" />
+    <ClCompile Include="StateSpaceTree\StateSpaceTree.cpp" />
     <ClCompile Include="StringMatching\StringMatching.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -166,6 +167,7 @@
     <ClInclude Include="SearchTree\RedBlackTree.h" />
     <ClInclude Include="Selection\Selection.h" />
     <ClInclude Include="Sort\Sort.h" />
+    <ClInclude Include="StateSpaceTree\StateSpaceTree.h" />
     <ClInclude Include="StringMatching\StringMatching.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

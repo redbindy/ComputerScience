@@ -23,6 +23,7 @@
 #include "Graph/TopologicalSorting.h"
 #include "Greedy/GreedyExamples.h"
 #include "StringMatching/StringMatching.h"
+#include "StateSpaceTree/StateSpaceTree.h"
 
 void TestTArray();
 void TestStack();
@@ -37,6 +38,7 @@ void TestDynamicProgramming();
 void TestGraph();
 void TestGreedyExamples();
 void TestStringMatching();
+void TestStateSpaceTree();
 
 int main()
 {
@@ -52,7 +54,8 @@ int main()
     // TestDynamicProgramming();
     // TestGraph();
     // TestGreedyExamples();
-    TestStringMatching();
+    // TestStringMatching();
+    TestStateSpaceTree();
 }
 
 void TestTArray()
@@ -917,4 +920,96 @@ void TestStringMatching()
 
     assert(FindSubStringBoyerMoore(pMainString, pSub));
     assert(!FindSubStringBoyerMoore(pMainString, pNotFound));
+}
+
+void TestStateSpaceTree()
+{
+    using namespace StateSpaceTree;
+
+    // TSP brute force
+    {
+        std::vector<std::vector<int>> matrix = {
+        {0, 10, 10, 30, 25},
+        {10, 0, 14, 21, 10},
+        {10, 18, 0, 7, 9},
+        {8, 11, 7, 0, 3},
+        {14, 10, 10, 3, 0}
+        };
+
+        std::cout << GetTSP(matrix) << std::endl;
+    }
+
+    // back tracking maze
+    {
+        std::vector<std::vector<bool>> maze(13, std::vector<bool>(13, false));
+        maze[0][1] = true;
+        maze[1][0] = true;
+        maze[1][2] = true;
+        maze[2][1] = true;
+        maze[1][3] = true;
+        maze[3][1] = true;
+        maze[3][4] = true;
+        maze[4][3] = true;
+        maze[3][5] = true;
+        maze[5][3] = true;
+        maze[5][6] = true;
+        maze[6][5] = true;
+        maze[5][7] = true;
+        maze[7][5] = true;
+        maze[7][12] = true;
+        maze[12][7] = true;
+        maze[7][8] = true;
+        maze[8][7] = true;
+        maze[8][9] = true;
+        maze[9][8] = true;
+        maze[8][10] = true;
+        maze[10][8] = true;
+        maze[8][11] = true;
+        maze[11][8] = true;
+
+        assert(CanExitMaze(maze, 0, 12));
+    }
+
+    // back tracking coloring
+    {
+        std::vector<std::vector<bool>> graph = {
+            { false, true, true, true, false, true },
+            { true, false, false, false, true, true },
+            { true, false, false, false, false, true },
+            { true, false, false, false, true, true },
+            { false, true, false, true, false, true },
+            { true, true, true, true, true, false }
+        };
+
+        assert(SolveColoringProblem(graph, 3));
+    }
+
+    // bounded branch - TSP
+    {
+        std::vector<std::vector<int>> matrix = {
+            {0, 10, 10, 30, 25},
+            {10, 0, 14, 21, 10},
+            {10, 18, 0, 7, 9},
+            {8, 11, 7, 0, 3},
+            {14, 10, 10, 3, 0}
+        };
+
+        std::cout << GetTSPBoundedBranch(matrix) << std::endl;
+    }
+
+    // A* shortest path
+    {
+        std::vector<std::vector<int>> matrix = {
+            { 0, 2, UINT8_MAX, 3, UINT8_MAX, UINT8_MAX },
+            { 2, 0, 6, UINT8_MAX, 1, UINT8_MAX },
+            { UINT8_MAX, 6, 0, UINT8_MAX, UINT8_MAX, 1 },
+            { 3, UINT8_MAX, UINT8_MAX, 0, 2, UINT8_MAX },
+            { UINT8_MAX, 1, UINT8_MAX, 2, 0, 2 },
+            { UINT8_MAX, UINT8_MAX, 1, UINT8_MAX, 2, 0 }
+        };
+
+        std::vector<int> estimatedValues = { 5, 4, 0, 7, 8, 2 };
+
+        PrintAStarShortestPath(matrix, estimatedValues, 0, 2);
+    }
 }
