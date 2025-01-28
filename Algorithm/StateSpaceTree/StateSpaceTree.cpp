@@ -63,8 +63,7 @@ namespace StateSpaceTree
         const int start,
         const Node node,
         const int count,
-        bool* const pbVisited,
-        const int sum
+        bool* const pbVisited
     )
     {
         assert(node.id >= 0);
@@ -73,7 +72,7 @@ namespace StateSpaceTree
 
         if (count == adjacentMatrix.size())
         {
-            return sum + adjacentMatrix[node.id][start];
+            return node.weight - minValues[node.id] + adjacentMatrix[node.id][start];
         }
 
         int result = INT32_MAX;
@@ -112,8 +111,7 @@ namespace StateSpaceTree
                     start,
                     n,
                     count + 1,
-                    pbVisited,
-                    sum + adjacentMatrix[node.id][n.id]
+                    pbVisited
                 );
 
                 if (tmp < result)
@@ -155,7 +153,7 @@ namespace StateSpaceTree
         bool* const pbVisited = new bool[adjacentMatrix.size()];
         memset(pbVisited, false, sizeof(bool) * adjacentMatrix.size());
         {
-            result = getTSPBoundedBranchRecursive(adjacentMatrix, minValues, 0, first, 1, pbVisited, 0);
+            result = getTSPBoundedBranchRecursive(adjacentMatrix, minValues, 0, first, 1, pbVisited);
         }
         delete[] pbVisited;
 
