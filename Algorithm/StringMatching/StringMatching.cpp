@@ -233,7 +233,7 @@ bool FindSubStringKMP(const char* pStr, const char* pSub)
 
                     goto RET;
 
-                    // 혹은 i + m - 1 반환
+                    // 혹은 i - (m - 1) 반환
                 }
 
                 ++j;
